@@ -24,7 +24,7 @@ public class Brand {
     private boolean status;
 
     @OneToMany(mappedBy = "brand")
-    private List<Product> products;
+    private List<Category> Categorys;
 
     //GET,SET
     public int getId() {
