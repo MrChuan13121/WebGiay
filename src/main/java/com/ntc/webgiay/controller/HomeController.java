@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +43,12 @@ public class HomeController {
 		List<Product> products = productService.getAllProduct();
 		model.addAttribute("listProduct",products);
 
+		//Lấy 3 sản phẩm mới nhất
+		List<Product> newProducts = productService.getListNewProducts();
+		model.addAttribute("newProducts",newProducts);
+//		int into = 1 ;
+//		List<String> categories = categoryService.getListCategoryOfBrand(into);
+//		model.addAttribute("listCategoryOfBrand",categories);
 
 
 		return "index";
@@ -78,6 +85,20 @@ public class HomeController {
 	public String showLoginPage(Model model){
 		model.addAttribute("user", new User());
 		return "login";
+	}
+
+	//Trang thông tin sản phẩm
+	@GetMapping("/{id}")
+	public String getDetailProduct(Model model, @PathVariable int id){
+		//Lấy thông tin sản phẩm
+		Product product;
+		try {
+			product = productService.getDetailProductById(id);
+		} catch (Exception ex){
+			return "error/404";
+		}
+		model.addAttribute("product",product);
+		return "single-product";
 	}
 
 }
