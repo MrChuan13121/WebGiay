@@ -5790,4 +5790,21 @@ label {
   .footer-text i {
     color: #ffba00; }
 
+  /* Google Map*/
+. map{
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.col-wrap {
+  display: table;
+  width: 100%;
+}
+
+.col {
+  display: table-cell;
+  padding: 1rem
+}
+
 /*# sourceMappingURL=main.css.map */

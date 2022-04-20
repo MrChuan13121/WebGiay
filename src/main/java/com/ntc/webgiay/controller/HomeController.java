@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class AppController {
+public class HomeController {
 
 	@Autowired
 	private UserRepository userRepo;
 	
-	@GetMapping("")
+	@GetMapping("/")
 	public String viewHomePage() {
 		return "index";
 	}
@@ -53,5 +53,13 @@ public class AppController {
 		model.addAttribute("user", new User());
 		return "login";
 	}
+
+	//Liên hệ
+	@GetMapping("/contact")
+	public String showContactPage(Model model){
+		model.addAttribute("user", new User());
+		return "contact";
+	}
+
 
 }
