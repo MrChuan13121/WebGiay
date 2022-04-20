@@ -9,5 +9,5 @@ import java.util.List;
 public interface CategoryService {
 
     //Lấy thể theo mã thương hiệu
-    List<Category> getListCategoryById(int id);
+    List<String> getListCategoryOfBrand(int id);
 }

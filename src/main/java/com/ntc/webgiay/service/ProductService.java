@@ -11,4 +11,10 @@ public interface ProductService {
 
     //Lấy tất cả các sản phẩm
     List<Product> getAllProduct();
+
+    //Lấy sản phẩm mới nhất
+    List<Product> getListNewProducts();
+
+    //Lấy thông tin sản phẩm theo id
+    Product getDetailProductById(int id);
 }
