@@ -49,9 +49,6 @@ public class Product {
     @JoinColumn( name = "category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn( name = "brand_id")
-    private  Brand brand;
 
     @ManyToMany
     @JoinTable( name = "OrderDetail", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))

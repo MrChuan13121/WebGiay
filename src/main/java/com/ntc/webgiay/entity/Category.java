@@ -19,6 +19,10 @@ public class Category {
     @OneToMany( mappedBy = "category")
     private List<Product> products;
 
+    @ManyToOne
+    @JoinColumn( name = "brand_id")
+    private  Brand brand;
+
     //GET,SET
     public int getId() {
         return id;
