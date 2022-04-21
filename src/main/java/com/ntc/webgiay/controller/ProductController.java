@@ -11,9 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 
 
+    @GetMapping("/category")
+    public  String pageCategory(){
+        return "category";
+    }
+
 
     @GetMapping("/single-product")
     public String pageSingleProduct(){
         return "single-product";
     }
+
+
 }
