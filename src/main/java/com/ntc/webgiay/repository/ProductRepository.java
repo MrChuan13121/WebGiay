@@ -1,3 +1,4 @@
+
 package com.ntc.webgiay.repository;
 
 
@@ -13,4 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT p.id, p.name FROM product p WHERE p.status = 1 ORDER BY created_at DESC limit ?1")
     List<Product> getListNewProducts(int limit);
+
 }

@@ -1,3 +1,4 @@
+
 package com.ntc.webgiay.service.impl;
 
 import com.ntc.webgiay.entity.Product;
@@ -35,5 +36,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = rs.get();
         return product;
     }
+
 
 }
