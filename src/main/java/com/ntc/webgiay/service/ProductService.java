@@ -1,3 +1,4 @@
+
 package com.ntc.webgiay.service;
 
 
@@ -17,4 +18,5 @@ public interface ProductService {
 
     //Lấy thông tin sản phẩm theo id
     Product getDetailProductById(int id);
+
 }
