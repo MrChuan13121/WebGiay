@@ -52,29 +52,39 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent" >
 						<ul class="nav navbar-nav menu_nav ml-auto" >
-							<li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
-<!--							<li class="nav-item submenu dropdown">-->
-<!--								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
-<!--								 aria-expanded="false">Nike</a>-->
-<!--								<ul class="dropdown-menu">-->
-<!--									<li class="nav-item"><a class="nav-link" href="category.html">Nike Air Force</a></li>-->
-<!--									<li class="nav-item"><a class="nav-link" href="single-product.html">Nike Air Max</a></li>-->
-<!--									<li class="nav-item"><a class="nav-link" href="checkout.html">Nike Blazer</a></li>-->
-<!--									<li class="nav-item"><a class="nav-link" href="cart.html">Nike Cortez</a></li>-->
-<!--									<li class="nav-item"><a class="nav-link" href="confirmation.html">Nike Jordan</a></li>-->
-<!--									<li class="nav-item"><a class="nav-link" href="confirmation.html">Nike Dunk</a></li>-->
-
-<!--								</ul>-->
-<!--							</li>-->
-							<li class="nav-item submenu dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:each="brand: ${listBrandsReputation}">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false" th:text="${brand.nameBrand}"></a>
-<!--								<ul class="dropdown-menu" th:each="category :${listCategoryOfBrand}">-->
-<!--									<li class="nav-item"><a class="nav-link" href="category.html" th:text="${category}" ></a></li>-->
-<!--								</ul>-->
+							<li class="nav-item active"><a class="nav-link" href="index">Trang chủ</a></li>
+							<!-- Shop -->
+							<li class="nav-item submenu dropdown">
+								<a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								   aria-expanded="false">Shop</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="category">Danh sách sản phẩm</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Nike</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Adidas</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Vans</a></li>
+									<li class="nav-item"><a class="nav-link" href="">Balenciaga</a></li>
+								</ul>
 							</li>
 
-							<li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+							<!-- Gio hang -->
+							<li class="nav-item submenu dropdown">
+								<a href="cart" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								   aria-expanded="false">Giỏ hàng</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
+									<li class="nav-item"><a class="nav-link" href="checkout">Product Checkout</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation">Confirmation</a></li>
+								</ul>
+							</li>
+							<li class="nav-item submenu dropdown">
+								<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								   aria-expanded="false">Blog</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="single-blog">Blog Details</a></li>
+								</ul>
+							</li>
+							<li class="nav-item"><a class="nav-link" href="contact">Liên hệ</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item">

@@ -25,7 +25,6 @@ public class HomeController {
 	@Autowired
 	private UserRepository userRepo;
 
-
 	@Autowired
 	ProductService productService;
 
@@ -80,6 +79,7 @@ public class HomeController {
 		
 		return "users";
 	}
+
 	//Đăng nhập
 	@GetMapping("/login")
 	public String showLoginPage(Model model){
@@ -100,5 +100,6 @@ public class HomeController {
 		model.addAttribute("product",product);
 		return "single-product";
 	}
+
 
 }
