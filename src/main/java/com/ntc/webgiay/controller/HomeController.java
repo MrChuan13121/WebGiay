@@ -101,5 +101,11 @@ public class HomeController {
 		return "single-product";
 	}
 
+	//Trang danh sách sản phẩm
+	@GetMapping("/products")
+	public String showListProduct(){
+    	return "category";
+	}
+
 
 }

@@ -52,17 +52,16 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent" >
 						<ul class="nav navbar-nav menu_nav ml-auto" >
-							<li class="nav-item active"><a class="nav-link" href="index">Trang chủ</a></li>
+							<li class="nav-item active"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
 							<!-- Shop -->
 							<li class="nav-item submenu dropdown">
 								<a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								   aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category">Danh sách sản phẩm</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Nike</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Adidas</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Vans</a></li>
-									<li class="nav-item"><a class="nav-link" href="">Balenciaga</a></li>
+								<ul class="dropdown-menu" >
+									<li class="nav-item"><a class="nav-link" th:href="@{/products}">Danh sách sản phẩm</a></li>
+									<div th:each="brand: ${listBrandsReputation}">
+										<li class="nav-item"><a class="nav-link" th:text="${brand.nameBrand}" href=""></a></li>
+									</div>
 								</ul>
 							</li>
 
