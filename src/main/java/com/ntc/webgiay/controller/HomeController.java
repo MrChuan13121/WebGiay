@@ -8,15 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
-
 	@Autowired
 	private UserRepository userRepo;
-	
+
+
+
 	@GetMapping("/")
 	public String viewHomePage() {
 		return "index";
@@ -62,4 +64,10 @@ public class HomeController {
 	}
 
 
+	//Tìm kiếm
+	@GetMapping("/search")
+	public String showSearchPage(Model model){
+		model.addAttribute("user", new User());
+		return "search";
+	}
 }
