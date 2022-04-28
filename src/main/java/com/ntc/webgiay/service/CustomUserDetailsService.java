@@ -1,6 +1,6 @@
 package com.ntc.webgiay.service;
 
-import com.ntc.webgiay.entity.User;
+import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

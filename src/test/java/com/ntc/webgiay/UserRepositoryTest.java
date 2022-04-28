@@ -2,7 +2,7 @@ package com.ntc.webgiay;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.ntc.webgiay.entity.User;
+import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

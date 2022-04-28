@@ -89,12 +89,20 @@
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" th:unless="${#request.userPrincipal != null }">
 								<a href="/login" class="cart">
 									<span class="ti-user">
 									</span>
-
+									<b> Đăng nhập</b>
 								</a>
+
+
+							</li>
+							<li style="display: flex; flex-direction: row; align-items: center; ">
+								<div th:if="${#request.userPrincipal != null }">
+									<b>[[${#request.userPrincipal.principal.fullName}]]</b>
+									<a th:href="@{/logout}"  class="btn btn-outline-warning " style="zoom: 0.7; margin-left: 5px;" > Đăng xuất</a>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -119,7 +127,7 @@
 			<div class="row fullscreen align-items-center justify-content-start">
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
-						<!-- single-slide -->
+						<!--single-slide -->
 						<div class="row single-slide align-items-center d-flex" th:each="product: ${newProducts}">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">

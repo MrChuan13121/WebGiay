@@ -1,6 +1,6 @@
 package com.ntc.webgiay.service;
 
-import com.ntc.webgiay.entity.Brand;
+import com.ntc.webgiay.model.Brand;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
