@@ -1,10 +1,9 @@
 package com.ntc.webgiay.controller;
 
 
-import com.ntc.webgiay.entity.Brand;
-import com.ntc.webgiay.entity.Category;
-import com.ntc.webgiay.entity.Product;
-import com.ntc.webgiay.entity.User;
+import com.ntc.webgiay.model.Brand;
+import com.ntc.webgiay.model.Product;
+import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.service.BrandService;
 import com.ntc.webgiay.service.CategoryService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.List;
@@ -40,10 +38,12 @@ public class HomeController {
 
     @GetMapping("")
 	public String homePage(Model model){
+    	//Lấy các thương hiệu
     	List<Brand> brandsReputation = brandService.getBrandReputation();
 		model.addAttribute("listBrandsReputation",brandsReputation);
 
-		List<Product> products = productService.getAllProduct();
+		//Lấy tát cả các sản phẩm
+		List<Product> products = productService.findAll();
 		model.addAttribute("listProduct",products);
 
 		//Lấy 3 sản phẩm mới nhất
@@ -106,11 +106,7 @@ public class HomeController {
 	}
 
 
-	//Trang danh sách sản phẩm
-	@GetMapping("/products")
-	public String showListProduct(){
-    	return "category";
-	}
+
 
 
 }

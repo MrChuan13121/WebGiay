@@ -1,6 +1,5 @@
 package com.ntc.webgiay.service;
 
-import com.ntc.webgiay.entity.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

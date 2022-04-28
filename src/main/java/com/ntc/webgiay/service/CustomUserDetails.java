@@ -1,6 +1,6 @@
 package com.ntc.webgiay.service;
 
-import com.ntc.webgiay.entity.User;
+import com.ntc.webgiay.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

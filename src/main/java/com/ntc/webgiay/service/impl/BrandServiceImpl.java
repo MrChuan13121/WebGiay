@@ -1,9 +1,7 @@
 package com.ntc.webgiay.service.impl;
 
-import com.ntc.webgiay.entity.Brand;
-import com.ntc.webgiay.entity.Category;
+import com.ntc.webgiay.model.Brand;
 import com.ntc.webgiay.repository.BrandRepository;
-import com.ntc.webgiay.repository.CategoryRepository;
 import com.ntc.webgiay.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

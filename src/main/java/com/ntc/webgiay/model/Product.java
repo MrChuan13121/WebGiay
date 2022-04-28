@@ -1,4 +1,4 @@
-package com.ntc.webgiay.entity;
+package com.ntc.webgiay.model;
 
 
 import javax.persistence.*;

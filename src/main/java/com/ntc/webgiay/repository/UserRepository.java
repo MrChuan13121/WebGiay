@@ -1,7 +1,7 @@
 package com.ntc.webgiay.repository;
 
 
-import com.ntc.webgiay.entity.User;
+import com.ntc.webgiay.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
