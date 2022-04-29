@@ -17,15 +17,17 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     @Query(nativeQuery = true, value = "SELECT p.id, p.name FROM product p WHERE p.status = 1 ORDER BY created_at DESC limit ?1")
     List<Product> getListNewProducts(int limit);
 
-//    //Tìm kiếm sản phẩm
-//    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
-//    List<Product> searchProducts(String keyword);
+    //Tìm kiếm sản phẩm
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+    Page<Product> searchProduct(String keyword,Pageable pageable);
 
-//    Page<Product> findAll(Pageable pageable);
+    Page<Product> findAll(Pageable pageable);
 //
-    //Tìm kiếm cộng phân trang
-    @Query(nativeQuery = true, value ="SELECT p FROM Product p WHERE p.name LIKE %?1%")
-    Page<Product> searchProducts(String keyword, Pageable pageable);
+//    //Tìm kiếm cộng phân trang
+//    @Query(nativeQuery = true, value ="SELECT p FROM Product p WHERE p.name LIKE %%?1%%")
+//    Page<Product> searchProducts(String keyword,Pageable pageable);
+
+
 
 
 }

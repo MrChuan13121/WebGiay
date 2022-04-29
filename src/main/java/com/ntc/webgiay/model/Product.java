@@ -126,5 +126,6 @@ public class Product {
     public void setModifiedAt(Timestamp modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
+
 }
 

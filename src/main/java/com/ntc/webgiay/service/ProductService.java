@@ -23,11 +23,11 @@ public interface ProductService {
     //Lấy thông tin sản phẩm theo id
     Product getDetailProductById(int id);
 
-//    //Lấy danh sách các sản phẩm và tìm kiếm
-//    List<Product> searchProducts(String keyword);
-
-    //Tìm kiếm sản phẩm và phân trang
-    Page<Product> searchProducts(String keyword, Pageable pageable);
-
-    Page<Product> findAll(Pageable pageable);
+    //Lấy danh sách các sản phẩm và tìm kiếm
+    Page<Product> searchProduct(String keyword, Pageable pageable);
+//
+//    //Tìm kiếm sản phẩm và phân trang
+//    Page<Product> searchProducts(String keyword, Pageable pageable);
+//
+//    Page<Product> findAll(Pageable pageable);
 }

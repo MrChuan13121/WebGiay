@@ -41,24 +41,24 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-//    //Tìm kiếm sản phẩm
+    //Tìm kiếm sản phẩm
+    @Override
+    public Page<Product> searchProduct(String keyword, Pageable pageable){
+        if(keyword != null){
+            return productRepository.searchProduct(keyword, pageable);
+        }else{
+            return productRepository.findAll(pageable);
+        }
+    }
 //    @Override
-//    public List<Product> searchProducts(String keyword){
-//        if(keyword != null){
-//            return productRepository.searchProducts(keyword);
-//        }else{
-//            return productRepository.findAll();
-//        }
+//    public Page<Product> findAll(Pageable pageable){
+//
+//        return productRepository.findAll(pageable);
 //    }
-    @Override
-    public Page<Product> findAll(Pageable pageable){
 
-        return productRepository.findAll(pageable);
-    }
-
-    //Tìm kiếm sản phẩm và phân trang
-    @Override
-    public Page<Product> searchProducts(String keyword, Pageable pageable){
-        return productRepository.searchProducts(keyword,pageable);
-    }
+//    //Tìm kiếm sản phẩm và phân trang
+//    @Override
+//    public Page<Product> searchProducts(String keyword, Pageable pageable){
+//        return productRepository.searchProducts(keyword,pageable);
+//    }
 }
