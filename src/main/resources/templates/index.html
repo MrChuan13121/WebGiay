@@ -32,6 +32,7 @@
 	<link rel="stylesheet" href="css/main.css">
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0" nonce="AmOqa4Oo"></script>
+
 </head>
 
 <body>
@@ -67,13 +68,7 @@
 
 							<!-- Gio hang -->
 							<li class="nav-item submenu dropdown">
-								<a href="cart" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Giỏ hàng</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation">Confirmation</a></li>
-								</ul>
+								<a th:href="@{/cart}" class="nav-link dropdown-toggle"  role="button" >Giỏ hàng</a>
 							</li>
 							<li class="nav-item submenu dropdown">
 								<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -134,7 +129,7 @@
 									<h1 th:text="${product.name}"> <br>Mua ngay!</h1>
 									<p th:text="${product.description}"></p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+										<a class="add-btn" th:href="@{/add/{id}(id=${product.id})}"><span class="lnr lnr-cross"></span></a>
 										<span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
 									</div>
 								</div>
@@ -166,7 +161,6 @@
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
 							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm nổi bật</h1>
-							<p>......</p>
 						</div>
 					</div>
 				</div>
@@ -183,22 +177,9 @@
 
 									</div>
 									<div class="prd-bottom">
-
-										<a href="" class="social-info">
+										<a th:href="@{add/{id}(id = ${product.id})}" class="social-info">
 											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-	<!--									<a href="" class="social-info">-->
-	<!--										<span class="lnr lnr-heart"></span>-->
-	<!--										<p class="hover-text">Wishlist</p>-->
-	<!--									</a>-->
-	<!--									<a href="" class="social-info">-->
-	<!--										<span class="lnr lnr-sync"></span>-->
-	<!--										<p class="hover-text">compare</p>-->
-	<!--									</a>-->
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
+											<p class="hover-text ">Thêm vào giỏ hàng</p>
 										</a>
 									</div>
 								</div>
@@ -215,7 +196,6 @@
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
 							<h1>Sản phẩm được mua nhiều nhất</h1>
-							<p>......</p>
 						</div>
 					</div>
 				</div>
@@ -489,6 +469,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
+
 
 </body>
 

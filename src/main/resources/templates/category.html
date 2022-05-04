@@ -64,13 +64,7 @@
 
 						<!-- Gio hang -->
 						<li class="nav-item submenu dropdown">
-							<a href="cart" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Giỏ hàng</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
-								<li class="nav-item"><a class="nav-link" href="checkout">Product Checkout</a></li>
-								<li class="nav-item"><a class="nav-link" href="confirmation">Confirmation</a></li>
-							</ul>
+							<a th:href="@{/cart}" class="nav-link dropdown-toggle" role="button" >Giỏ hàng</a>
 						</li>
 						<li class="nav-item submenu dropdown">
 							<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -143,8 +137,10 @@
 					<div style="padding: 20px 0px 10px 20px; color: black; font-weight: bold;">Thương hiệu</div>
 					<div style="padding-left: 20px;">
 						<form  th:each="brand : ${listBrandsReputation}">
-							<a style="color: black;" th:href="@{/products(name=${brand.nameBrand})}" >[[${brand.thumbnail}]] [[${brand.nameBrand}]]</a>
+							<hr>
+							<a style="color: black;" th:href="@{/products(name=${brand.nameBrand})}" ><img style="zoom: 0.45;" th:src="@{${brand.thumbnail}}"> [[${brand.nameBrand}]]</a>
 						</form>
+						<hr>
 					</div>
 
 				</div>
@@ -196,22 +192,22 @@
 									</div>
 									<div class="prd-bottom">
 
-										<a href="" class="social-info">
+										<a th:href="@{add/{id}(id = ${product.id})}" class="social-info">
 											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
+											<p class="hover-text">Thêm vào giỏ hàng</p>
 										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="single-product" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
+<!--										<a href="" class="social-info">-->
+<!--											<span class="lnr lnr-heart"></span>-->
+<!--											<p class="hover-text">Wishlist</p>-->
+<!--										</a>-->
+<!--										<a href="" class="social-info">-->
+<!--											<span class="lnr lnr-sync"></span>-->
+<!--											<p class="hover-text">compare</p>-->
+<!--										</a>-->
+<!--										<a href="single-product" class="social-info">-->
+<!--											<span class="lnr lnr-move"></span>-->
+<!--											<p class="hover-text">view more</p>-->
+<!--										</a>-->
 									</div>
 								</div>
 							</a>

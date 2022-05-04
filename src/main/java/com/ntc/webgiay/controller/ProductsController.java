@@ -1,7 +1,5 @@
 package com.ntc.webgiay.controller;
 
-
-
 import com.ntc.webgiay.model.Brand;
 import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.service.BrandService;
@@ -15,14 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-public class ProductController {
+public class ProductsController {
     @Autowired
     BrandService brandService;
 
@@ -32,7 +29,7 @@ public class ProductController {
 
     //Trang danh sách sản phẩm
     @GetMapping("/products")
-    public String showListProduct(Model model,@RequestParam( name = "name", required = false) String keyword,
+    public String showListProduct(Model model, @RequestParam( name = "name", required = false) String keyword,
                                   @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size){
 
@@ -72,7 +69,6 @@ public class ProductController {
         return "category";
 
     }
-
 
 
 }
