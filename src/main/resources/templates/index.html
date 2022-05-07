@@ -96,7 +96,7 @@
 							<li style="display: flex; flex-direction: row; align-items: center; ">
 								<div th:if="${#request.userPrincipal != null }">
 									<b>[[${#request.userPrincipal.principal.fullName}]]</b>
-									<a th:href="@{/logout}"  class="btn btn-outline-warning " style="zoom: 0.7; margin-left: 5px;" > Đăng xuất</a>
+									<a th:href="@{/logout}" class="btn btn-outline-warning " style="zoom: 0.7; margin-left: 5px;" > Đăng xuất</a>
 								</div>
 							</li>
 						</ul>

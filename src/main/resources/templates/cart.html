@@ -217,7 +217,13 @@
                         <div class="checkout_btn_inner d-flex align-items-center" style="">
                             <a class="gray_btn" th:href="@{/products}">Tiếp tục mua sắm</a>
                             &ensp;
-                            <a th:if="${listItem.size() != 0}" class="primary-btn" style="border-radius: 4px; line-height: 40px;" href="#">Thanh toán</a>
+                            <div th:if="${#request.userPrincipal == null}">
+                                <a th:if="${listItem.size() != 0}" class="primary-btn" style="border-radius: 4px; line-height: 40px;" th:href="@{/login}">Thanh toán</a>
+                            </div>
+                            <div th:if="${#request.userPrincipal != null}">
+                                <a th:if="${listItem.size() != 0}" class="primary-btn" style="border-radius: 4px; line-height: 40px;" th:href="@{/checkout}">Thanh toán</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

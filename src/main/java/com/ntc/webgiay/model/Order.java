@@ -1,9 +1,19 @@
 package com.ntc.webgiay.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name="orders")
 public class Order {
@@ -14,8 +24,7 @@ public class Order {
     @Column( name = "note", columnDefinition = "TEXT")
     private String note;
 
-    @Column( name = "quantity")
-    private int quantity;
+
 
     @Column( name = "address_receiver",nullable = false)
     private String addressReceiver;
@@ -42,87 +51,12 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany( mappedBy = "likedOrders")
-    private Set<Product> likes;
+//    @OneToMany(mappedBy = "order_detail")
+//    private List<OrderDetail> orderDetailList;
 
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getNote() {
-        return note;
-    }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getAddressReceiver() {
-        return addressReceiver;
-    }
-
-    public void setAddressReceiver(String addressReceiver) {
-        this.addressReceiver = addressReceiver;
-    }
-
-    public String getNameReceiver() {
-        return nameReceiver;
-    }
-
-    public void setNameReceiver(String nameReceiver) {
-        this.nameReceiver = nameReceiver;
-    }
-
-    public String getPhoneNumberReceiver() {
-        return phoneNumberReceiver;
-    }
-
-    public void setPhoneNumberReceiver(String phoneNumberReceiver) {
-        this.phoneNumberReceiver = phoneNumberReceiver;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Timestamp modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
 }

@@ -1,11 +1,18 @@
 package com.ntc.webgiay.service;
 
 import com.ntc.webgiay.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+
+@Getter
+@Setter
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
