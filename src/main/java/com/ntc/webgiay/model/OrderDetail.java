@@ -1,27 +1,34 @@
-//package com.ntc.webgiay.entity;
-//
-//import javax.persistence.Column;
-//
-//public class OrderDetail {
-//    @Column( name = "quantity")
-//    private int quantity;
-//
-//    @Column( name = "price")
-//    private float price;
-//
-//    public int getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
-//
-//    public float getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(float price) {
-//        this.price = price;
-//    }
-//}
+package com.ntc.webgiay.model;
+
+
+
+import lombok.*;
+
+import javax.persistence.*;
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table(name = "order_details")
+public class OrderDetail {
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "quantity")
+    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+
+
+
+}

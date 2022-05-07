@@ -50,9 +50,6 @@ public class Product {
     private Category category;
 
 
-    @ManyToMany
-    @JoinTable( name = "OrderDetail", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-    private Set<Order> likedOrders;
 
     //GET,SET
     public int getId() {

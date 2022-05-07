@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class HomeController {
 	@Autowired
 	CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping("/")
 	public String homePage(Model model){
     	//Lấy các thương hiệu
     	List<Brand> brandsReputation = brandService.getBrandReputation();
@@ -73,15 +74,12 @@ public class HomeController {
 		
 		userRepo.save(user);
 		
-		return "register_success";
+		return "redirect:/login";
 	}
-	
-	@GetMapping("/users")
-	public String listUsers(Model model) {
-		List<User> listUsers = userRepo.findAll();
-		model.addAttribute("listUsers", listUsers);
-		
-		return "users";
+	@GetMapping("/logout")
+	public  String logout(HttpSession session){
+    	session.removeAttribute("user");
+    	return "redirect:/login";
 	}
 
 	//Đăng nhập
