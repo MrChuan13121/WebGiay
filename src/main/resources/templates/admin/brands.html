@@ -48,6 +48,7 @@
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             th:href="@{/admin/index}"
                     >
+
                         <svg
                                 class="w-5 h-5"
                                 aria-hidden="true"
@@ -89,8 +90,12 @@
                 </a>
             </li>
                 <li class="relative px-6 py-3">
+                    <span
+                         class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                         aria-hidden="true"
+                    ></span>
                     <a
-                            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                             th:href="@{/admin/brands}"
                     >
                         <svg
@@ -111,12 +116,8 @@
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
-                    <span
-                            class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"
-                    ></span>
                     <a
-                            class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             th:href="@{/admin/products}"
                     >
                         <svg
@@ -270,8 +271,12 @@
                 </li>
 
                 <li class="relative px-6 py-3">
+                      <span
+                              class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                              aria-hidden="true"
+                      ></span>
                     <a
-                            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                             th:href="@{/admin/brands}"
                     >
                         <svg
@@ -290,12 +295,8 @@
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
-                      <span
-                          class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                          aria-hidden="true"
-                      ></span>
                     <a
-                            class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                            class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             th:href="@{/admin/products}"
                     >
                         <svg
@@ -618,7 +619,7 @@
                 <h2
                         class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
                 >
-                    Quản Lý Sản phẩm
+                    Quản Lý Thương Hiệu
                 </h2>
                 <!-- CTA -->
                 <a
@@ -635,7 +636,7 @@
                                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                             ></path>
                         </svg>
-                        <span>Tạo mới Sản phẩm</span>
+                        <span>Tạo mới Thương hiệu Giày</span>
                     </div>
                     <span>Thêm mới &RightArrow;</span>
                 </a>
@@ -649,11 +650,8 @@
                                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                             >
                                 <th class="px-4 py-3">ID</th>
-                                <th class="px-4 py-3">Ngày Tạo </th>
                                 <th class="px-4 py-3">Mô Tả</th>
-                                <th class="px-4 py-3">Tên Sản Phẩm</th>
-                                <th class="px-4 py-3">Giá</th>
-                                <th class="px-4 py-3">Số Lượng</th>
+                                <th class="px-4 py-3">Tên Thương Hiệu</th>
                                 <th class="px-4 py-3">Trạng Thái</th>
                                 <th class="px-4 py-3">Hình</th>
                                 <th class="px-4 py-3">Chức Năng</th>
@@ -701,18 +699,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -790,18 +777,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -879,18 +855,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -968,18 +933,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -1057,18 +1011,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -1146,18 +1089,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -1235,18 +1167,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -1324,18 +1245,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
@@ -1413,18 +1323,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     6/10/2020
                                 </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-
-                                </td>
+                                <td class="px-4 py-3 test-sm"></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <button
