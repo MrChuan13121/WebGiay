@@ -50,6 +50,7 @@ public class ShoppingCartsController {
 
     @PostMapping("/update")
     public String update(@RequestParam("id") Integer id, @RequestParam("qty") int qty){
+
         shoppingCartService.update(id,qty);
         return "redirect:/cart";
     }

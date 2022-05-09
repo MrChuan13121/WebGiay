@@ -1,10 +1,15 @@
 package com.ntc.webgiay.service.impl;
 
 import com.ntc.webgiay.model.CartItem;
+import com.ntc.webgiay.model.Product;
+import com.ntc.webgiay.repository.ProductRepository;
+import com.ntc.webgiay.service.ProductService;
 import com.ntc.webgiay.service.ShoppingCartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import javax.persistence.Access;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +19,9 @@ import java.util.Map;
 public class  ShoppingCartServiceImpl implements ShoppingCartService {
 
     Map<Integer, CartItem> maps = new HashMap<Integer, CartItem>();
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Override
     public void add(CartItem item){
@@ -33,7 +41,16 @@ public class  ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public CartItem update(int productId, int quantity){
         CartItem cartItem = maps.get(productId);
-        cartItem.setQuantity(quantity);
+        Product product = productRepository.getById(productId);
+        int qty = product.getQuantity();
+        if( qty >= quantity){
+            cartItem.setQuantity(quantity);
+        }else {
+            cartItem.setQuantity(1);
+        }
+
+
+
         return cartItem;
     }
 

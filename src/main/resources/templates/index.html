@@ -128,9 +128,13 @@
 								<div class="banner-content">
 									<h1 th:text="${product.name}"> <br>Mua ngay!</h1>
 									<p th:text="${product.description}"></p>
-									<div class="add-bag d-flex align-items-center">
+									<div class="add-bag d-flex align-items-center" th:if="${product.quantity > 0}">
 										<a class="add-btn" th:href="@{/add/{id}(id=${product.id})}"><span class="lnr lnr-cross"></span></a>
 										<span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
+									</div>
+									<div class="add-bag d-flex align-items-center" th:if="${product.quantity <= 0}">
+										<a class="add-btn" style="color: gray;"><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase">Thêm vào giỏ hàng (Hết hàng)</span>
 									</div>
 								</div>
 							</div>
@@ -176,10 +180,16 @@
 										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h6>
 
 									</div>
-									<div class="prd-bottom">
+									<div class="prd-bottom" th:if="${product.quantity > 0}">
 										<a th:href="@{add/{id}(id = ${product.id})}" class="social-info">
 											<span class="ti-bag"></span>
 											<p class="hover-text ">Thêm vào giỏ hàng</p>
+										</a>
+									</div>
+									<div class="prd-bottom" th:if="${product.quantity <= 0}">
+										<a class="social-info disable">
+											<span class="ti-bag"></span>
+											<p class="hover-text ">Hết hàng</p>
 										</a>
 									</div>
 								</div>
