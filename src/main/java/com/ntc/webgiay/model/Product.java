@@ -41,9 +41,6 @@ public class Product {
     @OneToMany( mappedBy = "product")
     private List<Comment> comments;
 
-    @ManyToOne
-    @JoinColumn(name = "size_id")
-    private Size size;
 
     @ManyToOne
     @JoinColumn( name = "category_id")
