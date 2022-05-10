@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "size")
+@Table(name = "sizes")
 public class Size {
 
 
@@ -15,11 +15,8 @@ public class Size {
     @Column( name = "number_size", nullable = false)
     private int numberSize;
 
-    @Column( name = "quantity")
-    private int quantity;
 
-    @OneToMany( mappedBy = "size")
-    private List<Product> products;
+
 
     //GET,SET
     public int getId() {
@@ -37,4 +34,5 @@ public class Size {
     public void setNumberSize(int numberSize) {
         this.numberSize = numberSize;
     }
+
 }

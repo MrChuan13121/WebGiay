@@ -50,6 +50,7 @@ public class User {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id")
+
     )
     private Set<Roles> roles = new HashSet<>();
 
