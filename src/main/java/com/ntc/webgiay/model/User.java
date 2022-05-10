@@ -1,7 +1,9 @@
 package com.ntc.webgiay.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -43,13 +45,16 @@ public class User {
 
 
 
+    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id")
+    )
+    private Set<Roles> roles = new HashSet<>();
 
 
-
-
-
-
-    //GET,SET
+//GET,SET
 
 
     public int getId() {
@@ -127,6 +132,30 @@ public class User {
     public String getFullName(){
         return firstName.toString() + " " + lastName.toString();
     }
+    public boolean isStatus() {
+        return status;
+    }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
 }
