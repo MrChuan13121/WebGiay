@@ -3,7 +3,9 @@ package com.ntc.webgiay.controller;
 
 import com.ntc.webgiay.model.Brand;
 import com.ntc.webgiay.model.Product;
+import com.ntc.webgiay.model.Roles;
 import com.ntc.webgiay.model.User;
+import com.ntc.webgiay.repository.RolesRepository;
 import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.service.BrandService;
 import com.ntc.webgiay.service.CategoryService;
@@ -20,7 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class HomeController {
@@ -36,6 +41,9 @@ public class HomeController {
 
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	RolesRepository rolesRepository;
 
     @GetMapping("/")
 	public String homePage(Model model){
@@ -71,7 +79,10 @@ public class HomeController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		
+		Set<Roles> roles = new HashSet<>();
+		Roles role = rolesRepository.getById(1);
+		roles.add(role);
+		user.setRoles(roles);
 		userRepo.save(user);
 		
 		return "redirect:/login";
