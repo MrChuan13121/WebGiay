@@ -1,5 +1,6 @@
 package com.ntc.webgiay.service.impl;
 
+import com.ntc.webgiay.model.Category;
 import com.ntc.webgiay.model.Order;
 import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.OrderRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Service
@@ -31,6 +33,12 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(true);
         orderRepository.save(order);
         return order;
+    }
+
+    @Override
+    public List<Order> findAll(){
+        List<Order> listOrder = orderRepository.findAll();
+        return listOrder;
     }
 }
 

@@ -137,11 +137,13 @@
 		<div class="row s_product_inner">
 			<img class="col-lg-7" th:src="@{${product.thumbnail}}" alt="thumbnail" />
 
+
 			<div class="col-lg-4 offset-lg-1">
 				<div class="s_product_text">
 					<h3 th:text="${product.name}"></h3>
 					<h2 th:text=" ${product.price} +' VNĐ'"></h2>
 					<p th:utext="${product.description}"></p>
+
 
 					<div class="product_count">
 						<label for="qty">	Chọn số lượng:</label>

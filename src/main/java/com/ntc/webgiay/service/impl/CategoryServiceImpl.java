@@ -1,5 +1,7 @@
 package com.ntc.webgiay.service.impl;
 
+import com.ntc.webgiay.model.Category;
+import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.repository.BrandRepository;
 import com.ntc.webgiay.repository.CategoryRepository;
 import com.ntc.webgiay.service.CategoryService;
@@ -20,5 +22,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<String> getListCategoryOfBrand(int id){
         return categoryRepository.getListCategoryOfBrand(id);
+    }
+
+
+    @Override
+    public List<Category> findAll(){
+        List<Category> listCategory = categoryRepository.findAll();
+        return listCategory;
     }
 }

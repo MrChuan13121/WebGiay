@@ -1,6 +1,7 @@
 package com.ntc.webgiay.service.impl;
 
 import com.ntc.webgiay.model.Brand;
+import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.repository.BrandRepository;
 import com.ntc.webgiay.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,9 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.findAll();
     }
 
+    @Override
+    public List<Brand> findAll(){
+        List<Brand> listBrand = brandRepository.findAll();
+        return listBrand;
+    }
 }
