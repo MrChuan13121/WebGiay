@@ -88,5 +88,18 @@ public class AdminsController {
         return "admin/orderDetail";
     }
 
+    @GetMapping("/admin/createBrand")
+    public String adminCreateBrand(){
+        return "admin/createBrand";
+    }
 
+    @GetMapping("/admin/createCategory")
+    public String adminCreateCategory(){
+        return "admin/createCategory";
+    }
+
+    @GetMapping("/admin/createProduct")
+    public String adminCreateProduct(){
+        return "admin/createProduct";
+    }
 }
