@@ -180,9 +180,9 @@
 
 									</div>
 									<div class="prd-bottom" th:if="${product.quantity > 0}">
-										<a th:href="@{add/{id}(id = ${product.id})}" class="social-info">
+										<a th:href="@{add/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
 											<span class="ti-bag"></span>
-											<p class="hover-text ">Thêm vào giỏ hàng</p>
+											<p class="hover-text ">Thêm vào giỏ</p>
 										</a>
 									</div>
 									<div class="prd-bottom" th:if="${product.quantity <= 0}">
@@ -204,42 +204,36 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
-							<h1>Sản phẩm được mua nhiều nhất</h1>
+							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm mới</h1>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<!-- single product -->
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid" src="img/product/p6.jpg" alt="">
-							<div class="product-details">
-								<h6>addidas New Hammer sole
-									for Sports person</h6>
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<div class="prd-bottom">
+					<div class="col-lg-3 col-md-6" th:each="product: ${listNewProduct}">
+						<div class="single-product" >
+							<a th:href="@{/{id}(id=${product.id})}">
+								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
+								<div class="product-details">
+									<h6 th:text="${product.name}"></h6>
+									<div class="price">
+										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h6>
 
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
+									</div>
+									<div class="prd-bottom" th:if="${product.quantity > 0}">
+										<a th:href="@{add/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text ">Thêm vào giỏ</p>
+										</a>
+									</div>
+									<div class="prd-bottom" th:if="${product.quantity <= 0}">
+										<a class="social-info disable">
+											<span class="ti-bag"></span>
+											<p class="hover-text ">Hết hàng</p>
+										</a>
+									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -295,54 +289,7 @@
 		</div>
 	</section>
 	<!-- end features Area -->
-	<!-- Start exclusive deal Area -->
-	<section class="exclusive-deal-area">
-		<div class="container-fluid justify-content-center">
-			<div class="row justify-content-center align-items-center">
-				<div class="col-lg-6 no-padding exclusive-left">
 
-				</div>
-				<div class="col-lg-6 no-padding exclusive-right">
-					<h2 class="text-center" style="padding: 10px;text-shadow: 5px 5px 10px gray; ">Sản phẩm đang khuyến mại</h2>
-					<div class="active-exclusive-product-slider">
-						<!-- single exclusive carousel -->
-						<div class="single-exclusive-slider">
-							<img class="img-fluid" src="img/product/e-p1.png" alt="">
-							<div class="product-details">
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<h4>addidas New Hammer sole
-									for Sports person</h4>
-								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
-								</div>
-							</div>
-						</div>
-						<!-- single exclusive carousel -->
-						<div class="single-exclusive-slider">
-							<img class="img-fluid" src="img/product/e-p1.png" alt="">
-							<div class="product-details">
-								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
-								</div>
-								<h4>addidas New Hammer sole
-									for Sports person</h4>
-								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End exclusive deal Area -->
 
 	<!-- Start brand Area -->
 	<section class="brand-area section_gap">
@@ -368,7 +315,99 @@
 	</section>
 	<!-- End brand Area -->
 	<!-- start footer Area -->
+	<footer class="footer-area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3  col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6>Liên hệ với chúng tôi</h6>
+						<a href="#" style="color: gray">
+							<p>
+								Hướng dẫn đặt hàng
+							</p>
+						</a>
+						<a href="#" style="color: gray">
+							<p>
+								Thông tin thanh toán
+							</p>
+						</a>
+						<a href="#" style="color: gray">
+							<p>
+								Chính sách giao hàng và nhận hàng
+							</p>
+						</a>
+						<a href="#" style="color: gray">
+							<p>
+								Liên hệ
+							</p>
+						</a>
+						<a href="#" style="color: gray">
+							<p>
+								Giới thiệu về chúng tôi
+							</p>
+						</a>
+					</div>
+				</div>
 
+				<div class="action">
+					<h6>Thông tin shop</h6>
+					<ul class="clearfix action_footer">
+						<li class="clearfix margin-bottom">
+							<div class="clearfix">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+
+							</div>
+						</li>
+						<li class="clearfix margin-bottom">
+							<div class="clearfix">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+
+							</div>
+						</li>
+						<li class="clearfix margin-bottom">
+							<div class="clearfix">
+								<i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+								<a href="tel:0865562385" title="Liên hệ nhanh" data-wpel-link="internal" style="color: gray; padding-left: 5px;">
+									086.5562.385
+								</a>
+							</div>
+						</li>
+						<li class="clearfix margin-bottom">
+							<div class="email">
+								<i class="fa fa-envelope-o" aria-hidden="true"></i>
+								<a href="mailto:nguyenvanchuan13012001@gmail.com" style="color: gray; padding-left: 5px;">
+									nguyenvanchuan13012001@gmail.com
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="fb-page ml-2"
+					 data-href="https://www.facebook.com/GiayBamBui"
+					 data-width="380"
+					 data-hide-cover="false"
+					 data-show-facepile="false">
+				</div>
+				<div class="col-lg-2 col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6>Theo dỗi chúng tôi</h6>
+						<div class="footer-social d-flex align-items-center">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Mọi quyền được bảo lưu | Mẫu này được làm bởi <i class="fa fa-heart-o" aria-hidden="true"></i>  <a href="https://colorlib.com" target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+			</div>
+		</div>
+	</footer>
 	<!-- End footer Area -->
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>

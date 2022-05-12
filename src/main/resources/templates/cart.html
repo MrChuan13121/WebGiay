@@ -141,6 +141,7 @@
                             <tr>
                                 <th scope="col">Sản phẩm</th>
                                 <th scope="col">Đơn giá</th>
+                                <th scope="col" style="width: 10%;">Size</th>
                                 <th scope="col" style="width: 15%;">Số lượng</th>
                                 <th scope="col" style="width: 15%;">Chức năng</th>
                             </tr>
@@ -163,6 +164,21 @@
                                         </td>
                                         <td>
                                             <h5 th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h5>
+                                        </td>
+                                        <td>
+                                            <div class="default-select" id="default-select">
+                                                <select id="sizeId" name="sizeId" >
+                                                    <div th:each="size:${listSize}">
+                                                        <div th:if="${item.size == size.numberSize}">
+                                                            <option  th:value="${size.id}" th:text="${size.numberSize}" selected></option>
+                                                        </div>
+                                                        <div th:if="${size.numberSize != item.size}">
+                                                            <option  th:value="${size.id}" th:text="${size.numberSize}"></option>
+                                                        </div>
+
+                                                    </div>
+                                                </select>
+                                            </div>
                                         </td>
                                         <td>
                                             <div class="product_count">
@@ -190,9 +206,15 @@
                                     <td>
 
                                     </td>
+                                    <td>
+
+                                    </td>
                                 </tr>
 
                                 <tr th:if="${listItem.size() != 0}">
+                                    <td>
+
+                                    </td>
                                     <td>
 
                                     </td>

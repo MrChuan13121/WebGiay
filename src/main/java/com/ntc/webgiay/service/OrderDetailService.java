@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface OrderDetailService {
-    OrderDetail createOrderDetail(int productId, int orderId , int qty);
+    OrderDetail createOrderDetail(int productId, int orderId , int qty, int size);
 }

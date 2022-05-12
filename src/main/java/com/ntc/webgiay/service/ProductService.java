@@ -15,7 +15,7 @@ public interface ProductService {
 
 
     //Lấy sản 3 phẩm mới nhất
-    List<Product> getListNewProducts();
+    List<Product> getListNewProducts(int limit);
 
     //Lấy danh sách các sản phẩm nổi bật
     List<Product> findAll();

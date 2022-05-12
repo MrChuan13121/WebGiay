@@ -12,6 +12,7 @@ public class CartItem {
     Integer productId;
     String name;
     String thumbnail;
+    int size;
     int quantity;
     float price;
 }
