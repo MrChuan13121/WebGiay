@@ -24,8 +24,6 @@ public class Order {
     @Column( name = "note", columnDefinition = "TEXT")
     private String note;
 
-
-
     @Column( name = "address_receiver",nullable = false)
     private String addressReceiver;
 
@@ -51,12 +49,19 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+
 //    @OneToMany(mappedBy = "order_detail")
 //    private List<OrderDetail> orderDetailList;
 
 
+//   SET, GET
+    public User getUser() {
+        return user;
+    }
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 
 }

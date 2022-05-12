@@ -23,6 +23,8 @@ public class Category {
     @JoinColumn( name = "brand_id")
     private  Brand brand;
 
+
+
     //GET,SET
     public int getId() {
         return id;
@@ -46,5 +48,20 @@ public class Category {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

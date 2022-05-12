@@ -216,7 +216,7 @@
 				<div class="col-lg-4 offset-lg-1">
 					<div class="s_product_text">
 						<h3 th:text="${product.name}"></h3>
-						<h2 th:text=" ${product.price} +' VNĐ'"></h2>
+						<h2 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' VNĐ'}"></h2>
 						<!--<div><span class="text-price" th:text="${product.price}"></span> &#x20AB;</div>-->
 			<!--			<ul class="list">
 							<li><span th:text="${product.price}">Price</span> VNĐ</li>
@@ -226,7 +226,7 @@
 							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
 							during the winter.</p>-->
 						<p th:utext="${product.description}"></p>
-						<div>SL:<span th:text="${product.quantity} + ' sản phẩm'"></span></div>
+						<!--<div th:text="'Số lượng sản phẩm'+ ${product.quantity} + ' sản phẩm'"></div>-->
 
 						<div class="product_count">
 							<label for="qty">	Chọn số lượng:</label>

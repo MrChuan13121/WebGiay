@@ -176,7 +176,7 @@
 								<div class="product-details">
 									<h6 th:text="${product.name}"></h6>
 									<div class="price">
-										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h6>
+										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h6>
 
 									</div>
 									<div class="prd-bottom" th:if="${product.quantity > 0}">
