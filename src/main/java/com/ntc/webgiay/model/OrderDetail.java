@@ -20,6 +20,9 @@ public class OrderDetail {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "size")
+    private int size;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

@@ -9,7 +9,7 @@ public interface ShoppingCartService {
 
     void remove(int id);
 
-    CartItem update(int productId, int quantity);
+    CartItem update(int productId, int quantity, int sizeId);
 
     void clear();
 

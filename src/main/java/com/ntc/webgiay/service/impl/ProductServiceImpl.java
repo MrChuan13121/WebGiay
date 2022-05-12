@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getListNewProducts(){
-        List<Product> products = productRepository.getListNewProducts(3);
+    public List<Product> getListNewProducts(int limit){
+        List<Product> products = productRepository.getListNewProducts(limit);
         return products;
     }
 

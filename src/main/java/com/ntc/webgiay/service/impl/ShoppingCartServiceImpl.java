@@ -2,7 +2,9 @@ package com.ntc.webgiay.service.impl;
 
 import com.ntc.webgiay.model.CartItem;
 import com.ntc.webgiay.model.Product;
+import com.ntc.webgiay.model.Size;
 import com.ntc.webgiay.repository.ProductRepository;
+import com.ntc.webgiay.repository.SizeRepository;
 import com.ntc.webgiay.service.ProductService;
 import com.ntc.webgiay.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class  ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    SizeRepository sizeRepository;
     @Override
     public void add(CartItem item){
             CartItem cartItem = maps.get(item.getProductId());
@@ -39,12 +43,14 @@ public class  ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public CartItem update(int productId, int quantity){
+    public CartItem update(int productId, int quantity, int sizeId){
         CartItem cartItem = maps.get(productId);
+        Size size = sizeRepository.getById(sizeId);
         Product product = productRepository.getById(productId);
         int qty = product.getQuantity();
         if( qty >= quantity){
             cartItem.setQuantity(quantity);
+            cartItem.setSize(size.getNumberSize());
         }else {
             cartItem.setQuantity(1);
         }

@@ -46,7 +46,7 @@ public class OrdersController {
         for (var item : cartItemMap
              ) {
             Product product = productService.getDetailProductById(item.getProductId());
-            orderDetailService.createOrderDetail(product.getId(),order.getId(),item.getQuantity());
+            orderDetailService.createOrderDetail(product.getId(),order.getId(),item.getQuantity(),item.getSize());
         }
         shoppingCartService.clear();
         return "redirect:/cart";

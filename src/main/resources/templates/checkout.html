@@ -133,18 +133,18 @@
 
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
-        <div class="container">
-            <div class="billing_details">
-                <div class="row">
+        <div class="container" >
+
+                <div class="row" style="margin-left: 15px; margin-right: 15px;">
                     <form class="row contact_form" th:action="@{/checkout}" method="post" >
                         <input type="hidden" name="userId" th:value="${user.id}">
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
                             <h3>Chi tiết thanh toán</h3>
 
-                                <div class="col-md-6 form-group p_star">
+                                <div class="col-md-12 form-group p_star">
                                     <input type="text" class="form-control" id="first" name="name_receiver" placeholder="Họ và tên người nhận" th:value="${user.getFullName()}">
                                 </div>
-                                <div class="col-md-6 form-group p_star">
+                                <div class="col-md-12 form-group p_star">
                                     <input type="text" class="form-control" id="number" name="phone_number_receiver" placeholder="Số điện thoại người nhận" th:value="${user.phoneNumber}">
                                 </div>
                                 <div class="col-md-12 form-group p_star">
@@ -159,7 +159,7 @@
                                 </div>
 
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <div class="order_box">
                                 <h2>Đơn hàng</h2>
                                 <ul class="list" th:each="item: ${listItem}">
@@ -175,7 +175,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+
         </div>
     </section>
     <!--================End Checkout Area =================-->

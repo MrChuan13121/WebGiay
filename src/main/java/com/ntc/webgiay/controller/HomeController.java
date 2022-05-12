@@ -1,17 +1,18 @@
 package com.ntc.webgiay.controller;
 
 
-import com.ntc.webgiay.model.Brand;
-import com.ntc.webgiay.model.Product;
-import com.ntc.webgiay.model.Roles;
-import com.ntc.webgiay.model.User;
+import com.ntc.webgiay.model.*;
+import com.ntc.webgiay.repository.ProductSizeRepository;
 import com.ntc.webgiay.repository.RolesRepository;
+import com.ntc.webgiay.repository.SizeRepository;
 import com.ntc.webgiay.repository.UserRepository;
-import com.ntc.webgiay.service.BrandService;
-import com.ntc.webgiay.service.CategoryService;
-import com.ntc.webgiay.service.ProductService;
+import com.ntc.webgiay.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.persistence.PostRemove;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class HomeController {
@@ -45,6 +50,13 @@ public class HomeController {
 	@Autowired
 	RolesRepository rolesRepository;
 
+	@Autowired
+	ProductSizeRepository productSizeRepository;
+
+	@Autowired
+	CommentService commentService;
+
+
     @GetMapping("/")
 	public String homePage(Model model){
     	//Lấy các thương hiệu
@@ -56,8 +68,12 @@ public class HomeController {
 		model.addAttribute("listProduct",products);
 
 		//Lấy 3 sản phẩm mới nhất
-		List<Product> newProducts = productService.getListNewProducts();
-		model.addAttribute("newProducts",newProducts);
+		List<Product> newProductsBanner = productService.getListNewProducts(3);
+		model.addAttribute("newProducts",newProductsBanner);
+
+		//Lấy 8 sản phẩm mới nhất
+		List<Product> newProducts = productService.getListNewProducts(8);
+		model.addAttribute("listNewProduct", newProducts);
 //		int into = 1 ;
 //		List<String> categories = categoryService.getListCategoryOfBrand(into);
 //		model.addAttribute("listCategoryOfBrand",categories);
@@ -102,7 +118,8 @@ public class HomeController {
 
 	//Trang thông tin sản phẩm
 	@GetMapping("/{id}")
-	public String getDetailProduct(Model model, @PathVariable int id){
+	public String getDetailProduct(Model model, @PathVariable int id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+
 		//Lấy thông tin sản phẩm
 		Product product;
 		try {
@@ -110,10 +127,44 @@ public class HomeController {
 		} catch (Exception ex){
 			return "error/404";
 		}
+
+		//Phân trang comment
+		int currentPage = page.orElse(1);
+		int sizePage = size.orElse(4);
+		Pageable pageable = PageRequest.of(currentPage - 1,sizePage);
+		Page<Comment> listComment = commentService.findAllByProductId(id,pageable);
 		model.addAttribute("product",product);
+		model.addAttribute("listCommnet",listComment);
+
+		int totalPage = listComment.getTotalPages();
+
+		if( totalPage > 0 ){
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage + 2, totalPage);
+			if( totalPage > 5 ){
+				if( end == totalPage){
+					start = end - 5;
+				}else if(start == 1){
+					end = start + 5;
+				}
+			}
+			List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			model.addAttribute("pageNumber", pagenummber);
+		}
+
 		return "single-product";
 	}
 
+	@PostMapping("/comment")
+	public String sendComment(@RequestParam("message") String comment, @RequestParam("productId") int productId){
+		User user = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+		commentService.createComment(productId,user.getId(),comment);
+
+
+    	return "redirect:/"+productId;
+	}
 
 
 
