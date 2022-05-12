@@ -30,8 +30,6 @@ public class AdminsController {
     @Autowired
     OrderDetailRepository orderDetailRepository;
 
-    @Autowired
-    OrderRepository orderRepository;
 
     @GetMapping("/admin")
     public String adminPage(){
@@ -79,8 +77,7 @@ public class AdminsController {
 
     @GetMapping("/admin/orderDetail/{id}")
     public String getOrderDetail(Model model,@PathVariable("id") int id){
-        OrderDetail orderDetail = orderDetailRepository.getById(id);
-        Order order = orderRepository.getById(orderDetail.getOrder().getId());
+        Order order = orderService.getById(id);
         List<OrderDetail> orderDetailList = orderDetailRepository.findAllByOrderId(order.getId());
 
         model.addAttribute("order",order);

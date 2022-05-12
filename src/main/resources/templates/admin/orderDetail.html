@@ -717,13 +717,28 @@
                             <!--SL-->
                             <td class="px-4 py-3 text-sm" th:text="${item.quantity}"></td>
 
-                            <td class="px-4 py-3 text-sm">
+                            <td class="px-4 py-3 text-sm" th:text="${item.size}">
 
                             </td>
                             <!--size-->
                             <td class="px-4 py-3 text-sm" th:text="${item.quantity * item.product.price}"></td>
 
-                            <td class="px-4 py-3 text-sm">Xác nhận</td>
+                            <td class="px-4 py-3 text-sm">
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <button
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit"
+                                    >
+                                    Xác nhận
+                                    </button>
+                                    <button
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="close"
+                                    >
+                                     Hủy
+                                    </button>
+                                </div>
+                            </td>
 
                             <!--<td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
