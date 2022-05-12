@@ -12,4 +12,6 @@ public interface OrderService {
     Order createOrder(String nameReceiver,String phoneReceiver,String addressReceiver,String note,String price, int userId);
 
     List<Order> findAll();
+
+    Order getById(int id);
 }
