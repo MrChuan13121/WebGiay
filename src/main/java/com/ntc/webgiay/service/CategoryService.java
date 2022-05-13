@@ -14,4 +14,6 @@ public interface CategoryService {
 
     //lấy tất cả loại
     List<Category> findAll();
+
+
 }
