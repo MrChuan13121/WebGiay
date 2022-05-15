@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
         order.setAddressReceiver(addressReceiver);
         order.setPrice(Float.parseFloat(price));
         order.setNote(note);
-        order.setStatus(true);
+        order.setStatus(false);
         orderRepository.save(order);
         return order;
     }
@@ -45,6 +45,12 @@ public class OrderServiceImpl implements OrderService {
     public Order getById(int id){
         return orderRepository.getById(id);
     }
+
+    @Override
+    public void updateStatus(int id){
+        orderRepository.updateStatus(id);
+    }
+
 }
 
 

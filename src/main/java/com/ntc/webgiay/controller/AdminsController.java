@@ -1,7 +1,13 @@
 package com.ntc.webgiay.controller;
 
-import com.ntc.webgiay.model.*;
+import com.ntc.webgiay.model.Order;
+import com.ntc.webgiay.model.OrderDetail;
+import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.repository.OrderDetailRepository;
+import com.ntc.webgiay.repository.OrderRepository;
+import com.ntc.webgiay.repository.ProductRepository;
+import com.ntc.webgiay.repository.UserRepository;
+import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +16,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +42,16 @@ public class AdminsController {
     OrderDetailRepository orderDetailRepository;
 
     @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
+
     UserService userService;
+
 
     @GetMapping("/admin")
     public String adminPage(){
@@ -42,25 +59,40 @@ public class AdminsController {
     }
 
     @GetMapping("/admin/index")
-    public String adminHome(){
+    public String adminHome(Model model){
+
+        model.addAttribute("totalProduct",productRepository.countProduct());
+        model.addAttribute("sumPrice", orderRepository.sumPrice());
+        model.addAttribute("countUser",userRepository.countUser());
+        model.addAttribute("countOrder", orderRepository.countOrder());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/index";
     }
 
     @GetMapping("/admin/orders")
     public String adminOrder(Model model){
         model.addAttribute("listOrder",orderService.findAll());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/orders";
+    }
+
+    @PostMapping("/accept")
+    public String acceptOrder(@RequestParam("orderId") Integer id){
+        orderService.updateStatus(id);
+        return "redirect:admin/orders";
     }
 
     @GetMapping("/admin/products")
     public String adminProducts(Model model){
         model.addAttribute("listProduct",productService.findAll());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/products";
     }
 
     @GetMapping("/admin/categories")
     public String adminCategories(Model model){
         model.addAttribute("listCategory", categoryService.findAll());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/categories";
     }
 
@@ -68,11 +100,13 @@ public class AdminsController {
     @GetMapping("/admin/brands")
     public String adminBrands(Model model){
         model.addAttribute("listBrand", brandService.findAll());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/brands";
     }
 
     @GetMapping("/admin/users")
     public String adminUsers(Model model){
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         List<Integer> listAdminId = userService.findAllAdminId();
         List<User> listUser = userService.findAll();
         for( var item : listAdminId){
@@ -84,7 +118,8 @@ public class AdminsController {
     }
 
     @GetMapping("/admin/orderDetail")
-    public String adminOrderDetail(){
+    public String adminOrderDetail(Model model){
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/orderDetail";
     }
 
@@ -95,21 +130,25 @@ public class AdminsController {
 
         model.addAttribute("order",order);
         model.addAttribute("listOrderDetail",orderDetailList);
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/orderDetail";
     }
 
     @GetMapping("/admin/createBrand")
-    public String adminCreateBrand(){
+    public String adminCreateBrand(Model model){
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/createBrand";
     }
 
     @GetMapping("/admin/createCategory")
-    public String adminCreateCategory(){
+    public String adminCreateCategory(Model model){
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/createCategory";
     }
 
     @GetMapping("/admin/createProduct")
-    public String adminCreateProduct(){
+    public String adminCreateProduct(Model model){
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/createProduct";
     }
 
