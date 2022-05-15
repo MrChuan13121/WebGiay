@@ -42,7 +42,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container" >
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href=""><img src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -56,7 +56,7 @@
 							<!-- Shop -->
 							<li class="nav-item submenu dropdown">
 								<a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Shop</a>
+								   aria-expanded="false">Cửa hàng</a>
 								<ul class="dropdown-menu" >
 									<li class="nav-item"><a class="nav-link" th:href="@{/products}">Danh sách sản phẩm</a></li>
 									<div th:each="brand: ${listBrandsReputation}">
@@ -68,14 +68,6 @@
 							<!-- Gio hang -->
 							<li class="nav-item submenu dropdown">
 								<a th:href="@{/cart}" class="nav-link dropdown-toggle"  role="button" >Giỏ hàng</a>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								   aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog">Blog Details</a></li>
-								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact">Liên hệ</a></li>
 						</ul>
@@ -89,8 +81,6 @@
 									</span>
 									<b> Đăng nhập</b>
 								</a>
-
-
 							</li>
 							<li style="display: flex; flex-direction: row; align-items: center; ">
 								<div th:if="${#request.userPrincipal != null }">
@@ -117,29 +107,28 @@
 
 	<!-- start banner Area -->
 	<section class="banner-area">
-		<div class="container">
+		<div class="container" style="padding-top: 20px;">
 			<div class="row fullscreen align-items-center justify-content-start">
 				<div class="col-lg-12">
 					<div class="active-banner-slider owl-carousel">
 						<!--single-slide -->
-						<div class="row single-slide align-items-center d-flex" th:each="product: ${newProducts}">
-							<div class="col-lg-5 col-md-6">
+						<div class="row single-slide align-items-center d-flex" style="justify-content: space-between; width: 100%;padding-top: 30px;" th:each="product: ${newProducts}">
+							<div class="col-lg-5 col-md-5">
 								<div class="banner-content">
-									<h1 th:text="${product.name}"> <br>Mua ngay!</h1>
-									<p th:text="${product.description}"></p>
+									<h1 style="color: #ff9933;" th:text="${product.name}"></h1>
 									<div class="add-bag d-flex align-items-center" th:if="${product.quantity > 0}">
 										<a class="add-btn" th:href="@{/add/{id}(id=${product.id})}"><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
+										<span class="add-text text-uppercase" style="color: white;">Thêm vào giỏ hàng</span>
 									</div>
 									<div class="add-bag d-flex align-items-center" th:if="${product.quantity <= 0}">
-										<a class="add-btn" style="color: gray;"><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Thêm vào giỏ hàng (Hết hàng)</span>
+										<a class="add-btn" ><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase" style="color: white;">Thêm vào giỏ hàng (Hết hàng)</span>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<div class="img-fluid">
+									<div class="img-fluid" style="padding-left: 70px;">
 										<img th:src="@{${product.thumbnail}}" style="width: 524px; height: 394px; margin-left: 20px;" alt="">
 									</div>
 
@@ -153,94 +142,6 @@
 	</section>
 	<!-- End banner Area -->
 
-
-
-	<!-- start product Area -->
-	<section class="owl-carousel active-product-area section_gap">
-		<!-- single product slide -->
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm nổi bật</h1>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6" th:each="product: ${listProduct}">
-						<div class="single-product" >
-							<a th:href="@{/{id}(id=${product.id})}">
-								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
-								<div class="product-details">
-									<h6 th:text="${product.name}"></h6>
-									<div class="price">
-										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h6>
-
-									</div>
-									<div class="prd-bottom" th:if="${product.quantity > 0}">
-										<a th:href="@{add/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text ">Thêm vào giỏ</p>
-										</a>
-									</div>
-									<div class="prd-bottom" th:if="${product.quantity <= 0}">
-										<a class="social-info disable">
-											<span class="ti-bag"></span>
-											<p class="hover-text ">Hết hàng</p>
-										</a>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- single product slide -->
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm mới</h1>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- single product -->
-					<div class="col-lg-3 col-md-6" th:each="product: ${listNewProduct}">
-						<div class="single-product" >
-							<a th:href="@{/{id}(id=${product.id})}">
-								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
-								<div class="product-details">
-									<h6 th:text="${product.name}"></h6>
-									<div class="price">
-										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h6>
-
-									</div>
-									<div class="prd-bottom" th:if="${product.quantity > 0}">
-										<a th:href="@{add/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text ">Thêm vào giỏ</p>
-										</a>
-									</div>
-									<div class="prd-bottom" th:if="${product.quantity <= 0}">
-										<a class="social-info disable">
-											<span class="ti-bag"></span>
-											<p class="hover-text ">Hết hàng</p>
-										</a>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end product Area -->
 	<!-- start features Area -->
 	<section class="features-area section_gap">
 		<div class="container">
@@ -291,24 +192,99 @@
 	<!-- end features Area -->
 
 
+	<!-- start product Area -->
+	<section class="owl-carousel active-product-area section_gap">
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm nổi bật</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- single product -->
+					<div class="col-lg-3 col-md-6" th:each="product: ${listRandomProduct}">
+						<div class="single-product" >
+							<a th:href="@{/{id}(id=${product.id})}">
+								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
+								<div class="product-details">
+									<h6 th:text="${product.name}"></h6>
+									<div class="price">
+										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h6>
+									</div>
+									<div style="padding-left: 10px; color: gray;" th:if="${product.quantity > 0}">
+										<p>Tình trạng: Còn hàng</p>
+									</div>
+									<div style="padding-left: 10px; color: gray;" th:if="${product.quantity <= 0}">
+										<p>Tình trạng: Hết hàng</p>
+									</div>
+									<div class="prd-bottom">
+										<a th:href="@{/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
+											<span class="ti-info"></span>
+											<p class="hover-text ">Chi tiết</p>
+										</a>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1 style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px gray; padding-top: 10px;">Sản phẩm mới</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- single product -->
+					<div class="col-lg-3 col-md-6" th:each="product: ${listNewProduct}">
+						<div class="single-product" >
+							<a th:href="@{/{id}(id=${product.id})}">
+								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
+								<div class="product-details">
+									<h6 th:text="${product.name}"></h6>
+									<div class="price">
+										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h6>
+									</div>
+									<div style="padding-left: 10px; color: gray;" th:if="${product.quantity > 0}">
+										<p>Tình trạng: Còn hàng</p>
+									</div>
+									<div style="padding-left: 10px; color: gray;" th:if="${product.quantity <= 0}">
+										<p>Tình trạng: Hết hàng</p>
+									</div>
+									<div class="prd-bottom">
+										<a th:href="@{/{id}(id = ${product.id})}" style="width: 100%;" class="social-info">
+											<span class="ti-info"></span>
+											<p class="hover-text ">Chi tiết</p>
+										</a>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end product Area -->
+
+
+
 	<!-- Start brand Area -->
 	<section class="brand-area section_gap">
 		<div class="container">
-			<div class="row">
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="img/brand/1.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="img/brand/2.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="img/brand/3.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="img/brand/4.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="img/brand/5.png" alt="">
+			<div class="row" >
+				<a class="col single-img" th:each="brand :${listBrandsReputation}" >
+					<img class="img-fluid d-block mx-auto" th:src="@{${brand.thumbnail}}" alt="">
 				</a>
 			</div>
 		</div>
