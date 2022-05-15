@@ -13,4 +13,5 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
     @Query(nativeQuery = true,value = "SELECT * FROM dbshopgiay.order_details WHERE order_id = ?1")
     List<OrderDetail> findAllByOrderId(int orderId);
 
+
 }

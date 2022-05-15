@@ -22,6 +22,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     Page<Product> searchProduct(String keyword,Pageable pageable);
 
     Page<Product> findAll(Pageable pageable);
+
+    //lấy  sản phẩm
+    @Query(nativeQuery = true, value = "SELECT COUNT( p.id)  FROM product p ")
+    int countProduct();
 //
 //    //Tìm kiếm cộng phân trang
 //    @Query(nativeQuery = true, value ="SELECT p FROM Product p WHERE p.name LIKE %%?1%%")

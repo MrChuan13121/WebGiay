@@ -14,4 +14,6 @@ public interface OrderService {
     List<Order> findAll();
 
     Order getById(int id);
+
+    void updateStatus(int id);
 }

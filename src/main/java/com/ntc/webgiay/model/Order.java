@@ -49,7 +49,9 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 //    @OneToMany(mappedBy = "order_detail")
 //    private List<OrderDetail> orderDetailList;
 
