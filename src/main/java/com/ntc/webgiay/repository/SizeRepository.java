@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface SizeRepository extends JpaRepository<Size, Integer> {
     @Query(nativeQuery = true, value = "select * from dbshopgiay.sizes where number_size = ?1")
     Size getByName(int size);
+
+
 }

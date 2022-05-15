@@ -119,11 +119,9 @@
 	<div class="container">
 		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 			<div class="col-first">
-				<h1 style="font-weight: 600;">Thông tin sản phẩm</h1>
+				<h1 style="font-weight: 600;color: #ff9933;">Thông tin sản phẩm</h1>
 				<nav class="d-flex align-items-center">
-					<a >Trang chủ<span class="lnr lnr-arrow-right"></span></a>
-					<a >Danh sách sản phẩm<span class="lnr lnr-arrow-right"></span></a>
-					<a >Thông tin sản phẩm</a>
+					<a >Trang chủ<span class="lnr lnr-arrow-right"></span> Danh sách sản phẩm <span class="lnr lnr-arrow-right"></span> Thông tin sản phẩm</a>
 				</nav>
 			</div>
 		</div>
@@ -132,51 +130,66 @@
 <!-- End Banner Area -->
 
 <!--================Single Product Area =================-->
-<div class="product_image_area">
-	<div class="container">
-		<div class="row s_product_inner">
+	<div class="container" >
+		<div class="row" style="display: inline-flex; width: 100%;">
 			<img class="col-lg-7" th:src="@{${product.thumbnail}}" alt="thumbnail" />
 
+				<form th:action="@{/add/{id}(id = ${product.id})}" method="post" class="col-lg-5">
+					<div class="s_product_text">
+						<h3 th:text="${product.name}"></h3>
+						<br>
+						<h2 th:text=" ${product.price} +' VNĐ'"></h2>
+						<p th:utext="${product.description}"></p>
+						<div>
+							<div th:if="${listSize.size() == 0}">Tình trạng: Hết hàng</div>
+							<div th:unless="${listSize.size() == 0}">Tình trạng: Còn hàng</div>
+						</div>
+						<br>
+						<label>Size: </label>
+						<div class="default-select" id="default-select">
 
-			<div class="col-lg-4 offset-lg-1">
-				<div class="s_product_text">
-					<h3 th:text="${product.name}"></h3>
-					<h2 th:text=" ${product.price} +' VNĐ'"></h2>
-					<p th:utext="${product.description}"></p>
+							<select id="size" name="size" >
+								<div th:each="size:${listSize}">
+									<option  th:value="${size.numberSize}" th:text="${size.numberSize}" ></option>
+								</div>
+							</select>
+						</div>
+						<br>
+						<div class="product_count">
+							<label>	Số lượng:</label>
+							<input type="text" style="padding: 5px;" name="qty" id="sst" maxlength="12" th:value="1" title="Quantity:" class="input-text qty">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+									class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+									class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						</div>
+						<div class="card_area d-flex align-items-center" th:if="${listSize.size() != 0}">
+							<input type="submit" class="primary-btn" value="Thêm vào giỏ hàng">
 
+						</div>
+						<div class="card_area d-flex align-items-center" th:if="${listSize.size() == 0}">
+						</div>
 
-					<div class="product_count">
-						<label for="qty">	Chọn số lượng:</label>
-						<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-								class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-								class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 					</div>
-					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" th:href="@{add/{id}(id = ${product.id})}">Thêm vào giỏ hàng</a>
-					</div>
-				</div>
-			</div>
+				</form>
 		</div>
 	</div>
-</div>
 <!--================End Single Product Area =================-->
 
 <!--================Product Description Area =================-->
-	<div class="container" style="margin: 20px auto;">
-		<ul class="nav nav-tabs" >
+	<div class="container" style="margin: 20px auto; background-color: rgba(153,152,152,0.27);">
+		<ul class="nav nav-tabs" style="padding: 20px;" >
 			<li class="nav-item">
 				<a class="nav-link"  style="    color: #495057;
-    							background-color: #fff;
+    							background-color: rgba(73,73,73,0.42);
 								border-color: #dee2e6 #dee2e6 #fff;">Bình luận</a>
 			</li>
 
 		</ul>
-			<div class="row" style="padding: 20px 0;">
+			<div class="row" style="padding: 20px;">
 				<div class="col-lg-6">
 					<div class="comment_list" th:each="comment: ${listCommnet}">
-						<div class="review_item reply">
+						<div class="review_item reply" style="padding-top: 10px;">
 							<div class="media">
 								<div class="media-body">
 									<h4 th:text="${comment.user.fullName}"></h4>
@@ -191,67 +204,23 @@
 					<span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
                   <nav aria-label="Table navigation">
                     <ul class="inline-flex items-center">
-                      <li>
-                        <button
-								class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-								aria-label="Previous"
-						>
-                          <svg
-								  class="w-4 h-4 fill-current"
-								  aria-hidden="true"
-								  viewBox="0 0 20 20"
-						  >
-                            <path
-									d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-									clip-rule="evenodd"
-									fill-rule="evenodd"
-							></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
                         <a		th:href="@{/{id}(id = ${product.id}, page = ${1}, size = ${listCommnet.size})}"
 								th:class="${ 1 == listCommnet.number + 1 } ? 'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-orange-600 rounded-md focus:outline-none focus:shadow-outline-orange':'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-orange'"
 						>
                           Đầu
                         </a>
-                      </li>
-                      <li>
-                        <a		th:href="@{/{id}(id = ${product.id}, page = ${pageNumber}, size = ${listCommnet.size})}"
-								  th:class="${ pageNumber == listCommnet.number + 1 } ? 'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple':'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple'"
+                        <a		th:href="@{/{id}(id = ${product.id}, page = ${pagenumber}, size = ${listCommnet.size})}"
+								  th:class="${ pagenumber == listCommnet.number + 1 } ? 'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple':'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple'"
 								th:if="${listCommnet.totalPages > 1}"
 								  th:each="pagenumber : ${pageNumber}"
 								  th:text="${pagenumber}"
 						>
                         </a>
-                      </li>
-
-
-                      <li>
                         <a		th:href="@{/{id}(id = ${product.id}, page = ${listCommnet.totalPages}, size = ${listCommnet.size})}"
 								  th:class="${ listCommnet.totalPages == listCommnet.number + 1 } ? 'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple':'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple'"
 						>
 							Cuối
                         </a>
-                      </li>
-                      <li>
-                        <button
-								class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-								aria-label="Next"
-						>
-                          <svg
-								  class="w-4 h-4 fill-current"
-								  aria-hidden="true"
-								  viewBox="0 0 20 20"
-						  >
-                            <path
-									d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-									clip-rule="evenodd"
-									fill-rule="evenodd"
-							></path>
-                          </svg>
-                        </button>
-                      </li>
                     </ul>
                   </nav>
                 </span>

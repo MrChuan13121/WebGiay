@@ -10,7 +10,6 @@ main {
     display: block;
 }
 h1 {
-    font-size: 2em;
     margin: 0.67em 0;
 }
 hr {
@@ -228,7 +227,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: inherit;
+
     font-weight: inherit;
 }
 a {
@@ -604,9 +603,7 @@ print and (-ms-high-contrast: none) {
     background-color: rgba(28, 100, 242, var(--bg-opacity));
 }
 .bg-purple-600 {
-    --bg-opacity: 1;
-    background-color: #7e3af2;
-    background-color: rgba(126, 58, 242, var(--bg-opacity));
+   background-color: saddlebrown;
 }
 .hover\:bg-gray-100:hover {
     --bg-opacity: 1;

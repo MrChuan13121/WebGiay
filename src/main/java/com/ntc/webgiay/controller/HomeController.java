@@ -25,10 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.PostRemove;
 import javax.servlet.http.HttpSession;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -56,6 +53,8 @@ public class HomeController {
 	@Autowired
 	CommentService commentService;
 
+	@Autowired
+	SizeRepository sizeRepository;
 
     @GetMapping("/")
 	public String homePage(Model model){
@@ -74,10 +73,10 @@ public class HomeController {
 		//Lấy 8 sản phẩm mới nhất
 		List<Product> newProducts = productService.getListNewProducts(8);
 		model.addAttribute("listNewProduct", newProducts);
-//		int into = 1 ;
-//		List<String> categories = categoryService.getListCategoryOfBrand(into);
-//		model.addAttribute("listCategoryOfBrand",categories);
 
+		//Lấy 8 sản phẩm ngẫu nhiên
+		List<Product> randomProducts = productService.getRandomListProduct(8);
+		model.addAttribute("listRandomProduct",randomProducts);
 
 		return "index";
 	}
@@ -153,6 +152,16 @@ public class HomeController {
 					.collect(Collectors.toList());
 			model.addAttribute("pageNumber", pagenummber);
 		}
+		//Lấy size có sẵn
+		List<Product_size> listSizeByProduct = productSizeRepository.findAllByProductId(id);
+		List<Size> listSize = new ArrayList<>();
+		for (var item : listSizeByProduct
+		) {
+			Size size1 = sizeRepository.getById(item.getSize().getId());
+			listSize.add(size1);
+		}
+
+		model.addAttribute("listSize",listSize);
 
 		return "single-product";
 	}
