@@ -22,12 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     Page<Product> searchProduct(String keyword,Pageable pageable);
 
     Page<Product> findAll(Pageable pageable);
-//
-//    //Tìm kiếm cộng phân trang
-//    @Query(nativeQuery = true, value ="SELECT p FROM Product p WHERE p.name LIKE %%?1%%")
-//    Page<Product> searchProducts(String keyword,Pageable pageable);
 
-
-
-
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.product ORDER BY RAND() LIMIT ?1")
+    List<Product> getRandomListProduct(int limit);
 }
