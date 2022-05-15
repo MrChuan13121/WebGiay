@@ -7,16 +7,22 @@ import com.ntc.webgiay.repository.OrderDetailRepository;
 import com.ntc.webgiay.repository.OrderRepository;
 import com.ntc.webgiay.repository.ProductRepository;
 import com.ntc.webgiay.repository.UserRepository;
+import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminsController {
@@ -43,6 +49,9 @@ public class AdminsController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    UserService userService;
+
 
     @GetMapping("/admin")
     public String adminPage(){
@@ -87,6 +96,7 @@ public class AdminsController {
         return "admin/categories";
     }
 
+
     @GetMapping("/admin/brands")
     public String adminBrands(Model model){
         model.addAttribute("listBrand", brandService.findAll());
@@ -97,6 +107,13 @@ public class AdminsController {
     @GetMapping("/admin/users")
     public String adminUsers(Model model){
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
+        List<Integer> listAdminId = userService.findAllAdminId();
+        List<User> listUser = userService.findAll();
+        for( var item : listAdminId){
+            User user = userService.getById(item);
+            listUser.remove(user);
+        }
+        model.addAttribute("listUser",listUser);
         return "admin/users";
     }
 
@@ -134,4 +151,7 @@ public class AdminsController {
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/createProduct";
     }
+
+
+
 }

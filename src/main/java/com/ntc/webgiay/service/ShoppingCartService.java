@@ -5,11 +5,11 @@ import com.ntc.webgiay.model.CartItem;
 import java.util.Collection;
 
 public interface ShoppingCartService {
-    void add(CartItem item);
+    void add(CartItem item, int size);
 
     void remove(int id);
 
-    CartItem update(int productId, int quantity, int sizeId);
+    CartItem update(int productId, int quantity, int size);
 
     void clear();
 
