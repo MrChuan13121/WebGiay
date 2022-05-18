@@ -1,8 +1,6 @@
 package com.ntc.webgiay.controller;
 
-import com.ntc.webgiay.model.Order;
-import com.ntc.webgiay.model.OrderDetail;
-import com.ntc.webgiay.model.Product;
+import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.repository.OrderDetailRepository;
 import com.ntc.webgiay.repository.OrderRepository;
 import com.ntc.webgiay.repository.ProductRepository;
@@ -10,6 +8,9 @@ import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class AdminsController {
@@ -70,8 +73,30 @@ public class AdminsController {
     }
 
     @GetMapping("/admin/orders")
-    public String adminOrder(Model model){
-        model.addAttribute("listOrder",orderService.findAll());
+    public String adminOrder(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        /*model.addAttribute("listOrder",orderRepository.getListOrder());*/
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Order> listOrder = orderService.findAllOrderById(pageable);
+        model.addAttribute("listOrder", listOrder);
+        int totalPage = listOrder.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/orders";
     }
@@ -83,23 +108,92 @@ public class AdminsController {
     }
 
     @GetMapping("/admin/products")
-    public String adminProducts(Model model){
-        model.addAttribute("listProduct",productService.findAll());
+    public String adminProducts(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        /*model.addAttribute("listProduct",productService.findAll());*/
+
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Product> listProduct = productService.findAllOrderById(pageable);
+        model.addAttribute("listProduct", listProduct);
+        int totalPage = listProduct.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/products";
     }
 
     @GetMapping("/admin/categories")
-    public String adminCategories(Model model){
-        model.addAttribute("listCategory", categoryService.findAll());
+    public String adminCategories(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Category> listCategory = categoryService.findAllOrderById(pageable);
+        model.addAttribute("listCategory", listCategory);
+        int totalPage = listCategory.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/categories";
     }
 
 
     @GetMapping("/admin/brands")
-    public String adminBrands(Model model){
+    public String adminBrands(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Brand> listBrand = brandService.findAllOrderById(pageable);
+        model.addAttribute("listBrand", listBrand);
+
+        int totalPage = listBrand.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
+/*
         model.addAttribute("listBrand", brandService.findAll());
+*/
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/brands";
     }

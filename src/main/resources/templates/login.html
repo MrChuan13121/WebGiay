@@ -13,8 +13,8 @@
     <div class="form-container sign-up-container">
 
         <form th:action="@{/process_register}" th:object="${user}" method="post">
-            <h1>Tạo tài khoản</h1>
-            <br>
+            <h1 type="padding:15px" >Tạo tài khoản</h1>
+
             <br>
             <input type="text" th:field="*{lastName}" class="form-control" placeholder="Họ và tên đệm" required minlength="2" maxlength="20" />
             <input type="text" th:field="*{firstName}" class="form-control" placeholder="Tên" required minlength="2" maxlength="20" />
@@ -26,8 +26,8 @@
     </div>
     <div class="form-container sign-in-container">
         <form th:action="@{/login}"  method="post">
-            <h1>Đăng nhập</h1>
-            <br>
+            <h1>Chào mừng đã đến với sneaker NTC</h1>
+            <p>ĐĂNG NHẬP!</p>
             <br>
             <input type="email" name="email"  placeholder="Email" required autofocus />
             <input type="password"  name="password" placeholder="Mật khẩu" required />
@@ -42,11 +42,14 @@
                 <h1>Chào mừng đã đến với sneaker NTC</h1>
                 <p>Bạn có đã có tài khoản và muốn đăng nhập.</p>
                 <button class="ghost" id="signIn">Đăng nhập</button>
+
+
             </div>
             <div class="overlay-panel overlay-right">
-                <h1>Chào, bạn!</h1>
+                <h1>Đăng ký</h1>
                 <p>Bạn chưa có tài khoản. Vui lòng đăng ký ở đây.</p>
                 <button class="ghost" id="signUp">Đăng ký</button>
+
             </div>
         </div>
     </div>
