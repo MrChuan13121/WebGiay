@@ -1,6 +1,8 @@
 
 package com.ntc.webgiay.service.impl;
 
+import com.ntc.webgiay.model.Brand;
+import com.ntc.webgiay.model.Category;
 import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.repository.ProductRepository;
 import com.ntc.webgiay.service.ProductService;
@@ -49,6 +51,13 @@ public class ProductServiceImpl implements ProductService {
         }else{
             return productRepository.findAll(pageable);
         }
+    }
+
+    //phân trang
+    @Override
+    public Page<Product> findAllOrderById(Pageable pageable){
+        Page<Product> pageList = productRepository.findAllOrderById(pageable);
+        return pageList;
     }
 //    @Override
 //    public Page<Product> findAll(Pageable pageable){

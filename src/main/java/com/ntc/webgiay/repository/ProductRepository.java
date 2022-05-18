@@ -2,6 +2,7 @@
 package com.ntc.webgiay.repository;
 
 
+import com.ntc.webgiay.model.Category;
 import com.ntc.webgiay.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     //lấy  sản phẩm
     @Query(nativeQuery = true, value = "SELECT COUNT( p.id)  FROM product p ")
     int countProduct();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.product ORDER BY Id DESC")
+    Page<Product> findAllOrderById(Pageable pageable);
 //
 //    //Tìm kiếm cộng phân trang
 //    @Query(nativeQuery = true, value ="SELECT p FROM Product p WHERE p.name LIKE %%?1%%")

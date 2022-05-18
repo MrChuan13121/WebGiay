@@ -2,6 +2,7 @@
 package com.ntc.webgiay.service;
 
 
+import com.ntc.webgiay.model.Brand;
 import com.ntc.webgiay.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,4 +31,6 @@ public interface ProductService {
 //    Page<Product> searchProducts(String keyword, Pageable pageable);
 //
 //    Page<Product> findAll(Pageable pageable);
+
+    Page<Product> findAllOrderById(Pageable pageable);
 }
