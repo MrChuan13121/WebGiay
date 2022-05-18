@@ -30,19 +30,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         OrderDetail orderDetail = new OrderDetail();
         Order order = orderRepository.getById(orderId);
         Product product = productRepository.getById(productId);
-        Size size1 = sizeRepository.getByName(size);
-        Product_size product_size = productSizeRepository.findByProductIdAndSizeId(productId,size1.getId());
-        int quantity = product.getQuantity();
-        int quantityForSize = product_size.getQuantity();
         orderDetail.setOrder(order);
         orderDetail.setProduct(product);
         orderDetail.setQuantity(qty);
         orderDetail.setSize(size);
-        product.setQuantity(quantity - qty);
-        product_size.setQuantity(quantityForSize - qty);
+
 
         productRepository.save(product);
-        productSizeRepository.save(product_size);
         orderDetailRepository.save(orderDetail);
         return orderDetail;
     }

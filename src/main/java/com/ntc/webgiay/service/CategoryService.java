@@ -16,4 +16,9 @@ public interface CategoryService {
     List<Category> findAll();
 
 
+    Category createCategory(String category, int brandId);
+
+    Category getById(int id);
+
+    Category update(int id, String category, int brandId);
 }

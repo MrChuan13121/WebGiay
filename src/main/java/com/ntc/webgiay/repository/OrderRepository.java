@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query(nativeQuery = true, value = "SELECT SUM(price) FROM dbshopgiay.orders WHERE status = 1")
+    @Query(value = "SELECT SUM(price) FROM Order WHERE status = 1")
     float sumPrice ();
 
     @Query(nativeQuery = true, value = "UPDATE dbshopgiay.orders set status = true where id = ?1")
@@ -23,6 +23,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT COUNT(id)  FROM dbshopgiay.orders where status = 0 ")
     int countDonHangCho();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.orders WHERE id = ?1")
+    Order getById(int id);
 
 
 //    @Modifying

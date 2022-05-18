@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface ShoppingCartService {
     void add(CartItem item, int size);
 
-    void remove(int id);
+    void remove(int id, int size);
 
     CartItem update(int productId, int quantity, int size);
 

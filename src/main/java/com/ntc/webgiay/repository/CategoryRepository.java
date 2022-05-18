@@ -14,5 +14,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query(nativeQuery = true, value = "SELECT name_category FROM category WHERE brand_id = ?1")
     List<String> getListCategoryOfBrand(int id);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.category ORDER BY id DESC ")
+    List<Category> findAll();
 
+    @Query(nativeQuery = true, value = "SELECT * FROM  dbshopgiay.category WHERE id = ?1")
+    Category getById(Integer id);
 }

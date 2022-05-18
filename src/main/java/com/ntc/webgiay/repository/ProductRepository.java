@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
-    @Query(nativeQuery = true, value = "SELECT p.id, p.name FROM product p WHERE p.status = 1 ORDER BY created_at DESC limit ?1")
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.product WHERE status = 1 ORDER BY created_at DESC limit ?1")
     List<Product> getListNewProducts(int limit);
 
     //Tìm kiếm sản phẩm
@@ -28,4 +28,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 
     @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.product ORDER BY RAND() LIMIT ?1")
     List<Product> getRandomListProduct(int limit);
+
 }

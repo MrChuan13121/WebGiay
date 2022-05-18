@@ -76,8 +76,8 @@ public class ShoppingCartsController {
 
 
     @GetMapping("delete/{id}")
-    public String remove(@PathVariable("id") Integer id){
-        shoppingCartService.remove(id);
+    public String remove(@PathVariable("id") Integer id,@RequestParam("size") int size){
+        shoppingCartService.remove(id,size);
         return "redirect:/cart";
     }
 

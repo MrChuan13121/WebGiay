@@ -117,12 +117,12 @@
 								<div class="banner-content">
 									<h1 style="color: #ff9933;" th:text="${product.name}"></h1>
 									<div class="add-bag d-flex align-items-center" th:if="${product.quantity > 0}">
-										<a class="add-btn" th:href="@{/add/{id}(id=${product.id})}"><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase" style="color: white;">Thêm vào giỏ hàng</span>
+										<a class="add-btn" th:href="@{/{id}(id=${product.id})}"><span class="lnr lnr-cross"></span></a>
+										<span class="add-text text-uppercase" style="color: white;">Xem chi tiết</span>
 									</div>
 									<div class="add-bag d-flex align-items-center" th:if="${product.quantity <= 0}">
 										<a class="add-btn" ><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase" style="color: white;">Thêm vào giỏ hàng (Hết hàng)</span>
+										<span class="add-text text-uppercase" style="color: white;">Hết hàng</span>
 									</div>
 								</div>
 							</div>

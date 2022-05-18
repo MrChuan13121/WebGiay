@@ -26,4 +26,30 @@ public class BrandServiceImpl implements BrandService {
         List<Brand> listBrand = brandRepository.findAll();
         return listBrand;
     }
+
+    @Override
+    public Brand getById(Integer id){
+        return brandRepository.getById(id);
+    }
+
+    @Override
+    public Brand createBrand(String name, String description, String thumbnail){
+        Brand brand = new Brand();
+        brand.setNameBrand(name);
+        brand.setDescription(description);
+        brand.setThumbnail(thumbnail);
+        brand.setStatus(false);
+        brandRepository.save(brand);
+        return brand;
+    }
+
+    @Override
+    public Brand save(Brand brand){
+        return brandRepository.save(brand);
+    }
+
+    @Override
+    public  void deleteBrand(Integer id){
+        brandRepository.delete(brandRepository.getById(id));
+    }
 }

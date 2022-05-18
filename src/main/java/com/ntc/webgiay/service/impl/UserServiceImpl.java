@@ -6,6 +6,7 @@ import com.ntc.webgiay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -31,4 +32,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public void deleteUser(Integer id){
+        userRepository.deleteById(id);
+    }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
-    @Query(nativeQuery= true, value ="Update dbshopgiay.category set brand_id = null where brand_id = ?1; Delete from dbshopgiay where id = ?1")
-    void deleteBrand(int id);
-
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.brand WHERE id = ?1")
+    Brand getById(Integer id);
 }
