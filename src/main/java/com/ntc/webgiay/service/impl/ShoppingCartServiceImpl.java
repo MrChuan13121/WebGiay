@@ -28,14 +28,20 @@ public class   ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     SizeRepository sizeRepository;
     @Override
-    public void add(CartItem item){
+    public void add(CartItem item, int size){
             CartItem cartItem = maps.get(item.getProductId());
             if( cartItem == null ){
                 maps.put(item.getProductId(),item);
-            }else{
-                 cartItem.setQuantity(cartItem.getQuantity() + 1 );
+            }else {
+                if(cartItem.getSize() == size){
+                    cartItem.setQuantity(cartItem.getQuantity() + 1 );
+                }else{
+                    maps.put(item.getSize(),item);
+                }
             }
+
     }
+
 
     @Override
     public void remove(int id){
@@ -43,16 +49,15 @@ public class   ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public CartItem update(int productId, int quantity, int sizeId){
+    public CartItem update(int productId, int quantity, int size){
         CartItem cartItem = maps.get(productId);
-        Size size = sizeRepository.getById(sizeId);
+        CartItem cartItem1 = maps.getOrDefault(size,cartItem);
         Product product = productRepository.getById(productId);
         int qty = product.getQuantity();
         if( qty >= quantity){
-            cartItem.setQuantity(quantity);
-            cartItem.setSize(size.getNumberSize());
+            cartItem1.setQuantity(quantity);
         }else {
-            cartItem.setQuantity(1);
+            cartItem1.setQuantity(1);
         }
 
 

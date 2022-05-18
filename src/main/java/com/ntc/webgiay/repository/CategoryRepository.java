@@ -19,3 +19,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.category ORDER BY Id DESC")
     Page<Category> findAllOrderById(Pageable pageable);
 }
+

@@ -23,7 +23,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
     Page<Product> searchProduct(String keyword,Pageable pageable);
 
     Page<Product> findAll(Pageable pageable);
-
     //lấy  sản phẩm
     @Query(nativeQuery = true, value = "SELECT COUNT( p.id)  FROM product p ")
     int countProduct();
@@ -37,5 +36,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 
 
 
-
+    @Query(nativeQuery = true, value = "SELECT * FROM dbshopgiay.product ORDER BY RAND() LIMIT ?1")
+    List<Product> getRandomListProduct(int limit);
 }

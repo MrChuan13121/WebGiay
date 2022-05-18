@@ -18,4 +18,5 @@ public interface CategoryService {
     List<Category> findAll();
 
     Page<Category> findAllOrderById(Pageable pageable);
+
 }

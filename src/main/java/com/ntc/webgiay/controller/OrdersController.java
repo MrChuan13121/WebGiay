@@ -1,10 +1,7 @@
 package com.ntc.webgiay.controller;
 
 
-import com.ntc.webgiay.model.CartItem;
-import com.ntc.webgiay.model.Order;
-import com.ntc.webgiay.model.Product;
-import com.ntc.webgiay.model.User;
+import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.repository.UserRepository;
 
 import com.ntc.webgiay.service.*;
@@ -19,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.Collection;
-
+import java.util.List;
 
 
 @Controller
@@ -39,6 +36,8 @@ public class OrdersController {
     @Autowired
     OrderDetailService orderDetailService;
 
+    @Autowired
+    BrandService brandService;
 
     @PostMapping("/checkout")
     public String createOrder( @RequestParam("name_receiver") String nameReceiver,@RequestParam("phone_number_receiver") String phoneReceiver,@RequestParam("address_receiver") String addressReceiver,@RequestParam("note") String note, @RequestParam("price") String price, @RequestParam("userId") Integer id) {
@@ -56,6 +55,10 @@ public class OrdersController {
 
     @GetMapping("/checkout")
     public String checkoutCart(Model model){
+        //Lấy các thương hiệu
+        List<Brand> brandsReputation = brandService.getBrandReputation();
+        model.addAttribute("listBrandsReputation",brandsReputation);
+
             User user = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
             model.addAttribute("user",userRepository.findByEmail(user.getEmail()));
             model.addAttribute("listItem",shoppingCartService.getAllItems());

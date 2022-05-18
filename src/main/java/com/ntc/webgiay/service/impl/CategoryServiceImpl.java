@@ -1,7 +1,6 @@
 package com.ntc.webgiay.service.impl;
 
 import com.ntc.webgiay.model.Category;
-import com.ntc.webgiay.model.Product;
 import com.ntc.webgiay.repository.BrandRepository;
 import com.ntc.webgiay.repository.CategoryRepository;
 import com.ntc.webgiay.service.CategoryService;
@@ -38,4 +37,5 @@ public class CategoryServiceImpl implements CategoryService {
         Page<Category> pageList = categoryRepository.findAllOrderById(pageable);
         return pageList;
     }
+
 }

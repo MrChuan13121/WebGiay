@@ -65,9 +65,8 @@ public class ProductServiceImpl implements ProductService {
 //        return productRepository.findAll(pageable);
 //    }
 
-//    //Tìm kiếm sản phẩm và phân trang
-//    @Override
-//    public Page<Product> searchProducts(String keyword, Pageable pageable){
-//        return productRepository.searchProducts(keyword,pageable);
-//    }
+    @Override
+    public List<Product> getRandomListProduct(int limit){
+        return productRepository.getRandomListProduct(limit);
+    }
 }

@@ -26,11 +26,14 @@ public interface ProductService {
 
     //Lấy danh sách các sản phẩm và tìm kiếm
     Page<Product> searchProduct(String keyword, Pageable pageable);
-//
+
 //    //Tìm kiếm sản phẩm và phân trang
 //    Page<Product> searchProducts(String keyword, Pageable pageable);
 //
 //    Page<Product> findAll(Pageable pageable);
 
     Page<Product> findAllOrderById(Pageable pageable);
+
+    //Lấy random danh sách sản phẩm
+    List<Product> getRandomListProduct(int limit);
 }
