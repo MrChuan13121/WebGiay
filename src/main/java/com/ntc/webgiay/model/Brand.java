@@ -64,8 +64,10 @@ public class Brand {
         this.description = description;
     }
 
+    @Transient
     public String getThumbnail() {
-        return thumbnail;
+        if(thumbnail == null ) return null;
+        return "/img/brand/"+thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {

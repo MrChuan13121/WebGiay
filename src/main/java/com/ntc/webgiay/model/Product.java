@@ -100,7 +100,8 @@ public class Product {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        if( thumbnail == null) return null;
+        return "/img/product/"+thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {

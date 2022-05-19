@@ -13,6 +13,7 @@ import com.ntc.webgiay.repository.UserRepository;
 
 import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.service.*;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -161,25 +163,14 @@ public class AdminsController {
     }
 
     @PostMapping("/admin/brand/add")
-    public String createBrand(@ModelAttribute("brand") Brand brand, @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
+    public RedirectView createBrand(Brand brand, @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
 
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        brand.setThumbnail("~/img/brand/" +filename);
-        brandService.save(brand);
-        String uploadDir = "./src/main/resources/static/img/brand/";
-        Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-
-        }catch(IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
-        return "redirect:/admin/brands";
+        brand.setThumbnail(filename);
+        brandRepository.save(brand);
+        String uploadDir = "img/brand/";
+        FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
+        return new RedirectView("/admin/brands",true);
     }
 
     @GetMapping("/admin/brand/update/{id}")
@@ -190,26 +181,16 @@ public class AdminsController {
     }
 
     @PostMapping("/admin/brand/update")
-    public String updateBrand(@RequestParam("id") Integer id, @RequestParam("nameBrand") String nameBrand, @RequestParam("description") String description, @RequestParam("thumbnailUrl") MultipartFile multipartFile ) throws IOException {
+    public RedirectView updateBrand(@RequestParam("id") Integer id, @RequestParam("nameBrand") String nameBrand, @RequestParam("description") String description, @RequestParam("thumbnailUrl") MultipartFile multipartFile ) throws IOException {
         Brand brand = brandService.getById(id);
         brand.setNameBrand(nameBrand);
         brand.setDescription(description);
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        brand.setThumbnail("~/img/brand/"+filename);
+        brand.setThumbnail(filename);
         brandService.save(brand);
-        String uploadDir = "./src/main/resources/static/img/brand/";
-        Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-        }catch(IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
-        return "redirect:/admin/brands";
+        String uploadDir = "img/brand/";
+        FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
+        return new RedirectView("/admin/brands",true);
 
     }
 
@@ -257,7 +238,7 @@ public class AdminsController {
     }
 
     @PostMapping("/admin/createProduct")
-    public String adminCreateProduct(@RequestParam("name") String name,
+    public RedirectView adminCreateProduct(@RequestParam("name") String name,
                                      @RequestParam("categoryId") Integer categoryId,
                                      @RequestParam("price") float price,
                                      @RequestParam("description") String description,
@@ -273,23 +254,13 @@ public class AdminsController {
         category.setStatus(true);
         Brand brand = category.getBrand();
         brand.setStatus(true);
-        product.setThumbnail("~/img/product/"+filename);
+        product.setThumbnail(filename);
         productRepository.save(product);
         categoryRepository.save(category);
         brandRepository.save(brand);
-        String uploadDir = "./src/main/resources/static/img/product/";
-        Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        }catch (IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
-        return "redirect:/admin/products";
+        String uploadDir = "img/product/";
+        FileUploadUtil.saveFile(uploadDir,filename,multipartFile);
+        return new RedirectView("/admin/products",true);
     }
 
 
