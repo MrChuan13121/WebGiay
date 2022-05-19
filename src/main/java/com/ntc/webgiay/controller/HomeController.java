@@ -6,12 +6,18 @@ import com.ntc.webgiay.repository.ProductSizeRepository;
 import com.ntc.webgiay.repository.RolesRepository;
 import com.ntc.webgiay.repository.SizeRepository;
 import com.ntc.webgiay.repository.UserRepository;
+import com.ntc.webgiay.security.SecurityUtils;
 import com.ntc.webgiay.service.*;
 
+import com.sun.security.auth.UserPrincipal;
+import org.apache.catalina.Authenticator;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.PostRemove;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -56,6 +63,8 @@ public class HomeController {
 	@Autowired
 	SizeRepository sizeRepository;
 
+	UserPrincipal userPrincipal;
+
     @GetMapping("/")
 	public String homePage(Model model){
     	//Lấy các thương hiệu
@@ -85,7 +94,7 @@ public class HomeController {
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("user", new User());
-		
+
 		return "signup_form";
 	}
 	
@@ -94,10 +103,7 @@ public class HomeController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		Set<Roles> roles = new HashSet<>();
-		Roles role = rolesRepository.getById(1);
-		roles.add(role);
-		user.setRoles(roles);
+		user.setStatus(false);
 		userRepo.save(user);
 		
 		return "redirect:/login";
@@ -154,13 +160,20 @@ public class HomeController {
 		}
 		//Lấy size có sẵn
 		List<Product_size> listSizeByProduct = productSizeRepository.findAllByProductId(id);
-		List<Size> listSize = new ArrayList<>();
+		List<Product_size> listSize = new ArrayList<>();
 		for (var item : listSizeByProduct
 		) {
-			Size size1 = sizeRepository.getById(item.getSize().getId());
-			listSize.add(size1);
-		}
+			if(item.getQuantity() > 0){
+				listSize.add(item);
+			}
 
+		}
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth.getPrincipal() != "anonymousUser")
+		{
+			User user = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+			model.addAttribute("user",user);
+		}
 		model.addAttribute("listSize",listSize);
 
 		return "single-product";

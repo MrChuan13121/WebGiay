@@ -1,5 +1,7 @@
 package com.ntc.webgiay.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,7 +26,18 @@ public class Brand {
     private boolean status;
 
     @OneToMany(mappedBy = "brand")
-    private List<Category> Categorys;
+    private List<Category> categories;
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    @Transient
+    private MultipartFile multipartFile;
 
     //GET,SET
     public int getId() {
@@ -65,5 +78,13 @@ public class Brand {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
     }
 }

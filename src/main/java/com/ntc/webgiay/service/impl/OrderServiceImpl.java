@@ -4,6 +4,7 @@ import com.ntc.webgiay.model.Category;
 import com.ntc.webgiay.model.Order;
 import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.OrderRepository;
+import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,11 +21,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    UserRepository userRepository;
     @Override
     public Order createOrder(String nameReceiver,String phoneReceiver,String addressReceiver,String note,String price, int userId){
         Order order = new Order();
-        User user = new User();
-        user.setId(userId);
+        User user = userRepository.getById(userId);
         order.setUser(user);
         order.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         order.setNameReceiver(nameReceiver);
@@ -34,6 +36,7 @@ public class OrderServiceImpl implements OrderService {
         order.setNote(note);
         order.setStatus(false);
         orderRepository.save(order);
+        user.setStatus(true);
         return order;
     }
 

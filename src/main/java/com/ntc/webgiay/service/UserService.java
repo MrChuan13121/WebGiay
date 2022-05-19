@@ -13,6 +13,7 @@ public interface UserService {
 
     User getById(int id);
 
+    void deleteUser(Integer id);
 }
 
 

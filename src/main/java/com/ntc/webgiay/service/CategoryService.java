@@ -19,4 +19,9 @@ public interface CategoryService {
 
     Page<Category> findAllOrderById(Pageable pageable);
 
+    Category createCategory(String category, int brandId);
+
+    Category getById(int id);
+
+    Category update(int id, String category, int brandId);
 }

@@ -149,8 +149,8 @@
 						<div class="default-select" id="default-select">
 
 							<select id="size" name="size" >
-								<div th:each="size:${listSize}">
-									<option  th:value="${size.numberSize}" th:text="${size.numberSize}" ></option>
+								<div th:each="item:${listSize}">
+									<option  th:value="${item.size.numberSize}" th:text="${item.size.numberSize}" ></option>
 								</div>
 							</select>
 						</div>
@@ -226,21 +226,23 @@
                 </span>
 				</div>
 				<div class="col-lg-6">
-					<div class="review_box" th:if="${#request.userPrincipal == null}">
+					<div class="review_box" th:if="${#request.userPrincipal == null  }">
 					</div>
 					<div class="review_box" th:unless="${#request.userPrincipal == null}">
-						<h4>Thêm bình luận</h4>
-						<form class="row contact_form" th:action="@{/comment}" th:method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="hidden" name="productId" th:value="${product.id}">
-									<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
+						<div th:if="${user.status == true}">
+							<h4>Thêm bình luận</h4>
+							<form class="row contact_form" th:action="@{/comment}" th:method="post" id="contactForm" novalidate="novalidate">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="hidden" name="productId" th:value="${product.id}">
+										<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
+									</div>
 								</div>
-							</div>
-							<div class="col-md-12 text-right">
-								<button type="submit" value="submit" class="btn primary-btn">Gửi bình luận</button>
-							</div>
-						</form>
+								<div class="col-md-12 text-right">
+									<button type="submit" value="submit" class="btn primary-btn">Gửi bình luận</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

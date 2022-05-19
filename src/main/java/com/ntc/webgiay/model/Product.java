@@ -1,6 +1,8 @@
 package com.ntc.webgiay.model;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -41,12 +43,36 @@ public class Product {
     @OneToMany( mappedBy = "product")
     private List<Comment> comments;
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     @ManyToOne
     @JoinColumn( name = "category_id")
     private Category category;
 
+    @Transient
+    private MultipartFile multipartFile;
 
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
+    }
 
     //GET,SET
     public int getId() {

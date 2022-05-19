@@ -20,4 +20,11 @@ public interface BrandService {
 
     Page<Brand> findAllOrderById(Pageable pageable);
 
+    Brand getById(Integer id);
+
+    Brand createBrand(String name, String description, String thumbnail);
+
+    Brand save(Brand brand);
+
+    void deleteBrand(Integer id);
 }

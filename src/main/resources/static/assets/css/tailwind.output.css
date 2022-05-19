@@ -1388,8 +1388,7 @@ print and (-ms-high-contrast: none) {
 }
 .text-purple-600 {
     --text-opacity: 1;
-    color: #7e3af2;
-    color: rgba(126, 58, 242, var(--text-opacity));
+    color: saddlebrown;
 }
 .focus-within\:text-purple-500:focus-within {
     --text-opacity: 1;
