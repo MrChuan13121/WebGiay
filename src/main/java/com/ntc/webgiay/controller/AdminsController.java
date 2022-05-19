@@ -1,11 +1,22 @@
 package com.ntc.webgiay.controller;
 
+
 import com.ntc.webgiay.model.Order;
 import com.ntc.webgiay.model.OrderDetail;
 import com.ntc.webgiay.repository.*;
+
+import com.ntc.webgiay.model.*;
+import com.ntc.webgiay.repository.OrderDetailRepository;
+import com.ntc.webgiay.repository.OrderRepository;
+import com.ntc.webgiay.repository.ProductRepository;
+import com.ntc.webgiay.repository.UserRepository;
+
 import com.ntc.webgiay.model.*;
 import com.ntc.webgiay.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,6 +33,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.util.List;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 
 @Controller
 public class AdminsController {
@@ -78,14 +94,64 @@ public class AdminsController {
         return "admin/index";
     }
 
-
     /////////////////////////////Brand
     @GetMapping("/admin/brands")
-    public String adminBrands(Model model){
-        model.addAttribute("listBrand", brandService.findAll());
+    public String adminBrands(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Brand> listBrand = brandService.findAllOrderById(pageable);
+        model.addAttribute("listBrand", listBrand);
+
+        int totalPage = listBrand.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/brand/brands";
     }
+
+    @GetMapping("/admin/orders")
+    public String adminOrder(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Order> listOrder = orderService.findAllOrderById(pageable);
+        model.addAttribute("listOrder", listOrder);
+        int totalPage = listOrder.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
+        return "admin/order/orders";
+    }
+
+
 
     @GetMapping("/admin/createBrand")
     public String adminCreateBrand(Model model){
@@ -152,14 +218,110 @@ public class AdminsController {
         brandService.deleteBrand(id);
         return "redirect:/admin/brands";
     }
+
+
+    @GetMapping("/admin/products")
+    public String adminProducts(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Product> listProduct = productService.findAllOrderById(pageable);
+        model.addAttribute("listProduct", listProduct);
+        int totalPage = listProduct.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
+        return "admin/product/products";
+    }
+    @GetMapping("/admin/createProduct")
+    public String adminCreateProduct(Model model){
+        model.addAttribute("newProduct",new Product());
+        model.addAttribute("listCategory",categoryRepository.findAll());
+        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
+        return "admin/product/createProduct";
+    }
+
+    @PostMapping("/admin/createProduct")
+    public String adminCreateProduct(@RequestParam("name") String name,
+                                     @RequestParam("categoryId") Integer categoryId,
+                                     @RequestParam("price") float price,
+                                     @RequestParam("description") String description,
+                                     @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
+        Product product = new Product();
+        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        product.setName(name);
+        product.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        product.setPrice(price);
+        product.setDescription(description);
+        Category category = categoryRepository.getById(categoryId);
+        product.setCategory(category);
+        category.setStatus(true);
+        Brand brand = category.getBrand();
+        brand.setStatus(true);
+        product.setThumbnail("~/img/product/"+filename);
+        productRepository.save(product);
+        categoryRepository.save(category);
+        brandRepository.save(brand);
+        String uploadDir = "./src/main/resources/static/img/product/";
+        Path uploadPath = Paths.get(uploadDir);
+        if(!Files.exists(uploadPath)){
+            Files.createDirectories(uploadPath);
+        }
+        try{
+            InputStream inputStream = multipartFile.getInputStream();
+            Path filePath = uploadPath.resolve(filename);
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }catch (IOException e){
+            throw new IOException("Không thể tải file: "+filename);
+        }
+        return "redirect:/admin/products";
+    }
+
+
     //////////////////////////Category
     @GetMapping("/admin/categories")
-    public String adminCategories(Model model){
-        model.addAttribute("listCategory", categoryService.findAll());
+    public String adminCategories(Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+
+        Pageable pageable = PageRequest.of(currentPage - 1, sizePage);
+        Page<Category> listCategory = categoryService.findAllOrderById(pageable);
+        model.addAttribute("listCategory", listCategory);
+        int totalPage = listCategory.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
         return "admin/category/categories";
     }
-
 
     @GetMapping("/admin/createCategory")
     public String adminCreateCategory(Model model){
@@ -197,12 +359,6 @@ public class AdminsController {
 
 
     /////////////////////////Order
-    @GetMapping("/admin/orders")
-    public String adminOrder(Model model){
-        model.addAttribute("listOrder",orderService.findAll());
-        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
-        return "admin/order/orders";
-    }
 
     @PostMapping("/accept")
     public String acceptOrder(@RequestParam("orderId") int id){
@@ -276,58 +432,6 @@ public class AdminsController {
     }
 
     //////////////////////////Product
-
-    @GetMapping("/admin/products")
-    public String adminProducts(Model model){
-        model.addAttribute("listProduct",productService.findAll());
-        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
-        return "admin/product/products";
-    }
-
-    @GetMapping("/admin/createProduct")
-    public String adminCreateProduct(Model model){
-        model.addAttribute("newProduct",new Product());
-        model.addAttribute("listCategory",categoryRepository.findAll());
-        model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
-        return "admin/product/createProduct";
-    }
-
-    @PostMapping("/admin/createProduct")
-    public String adminCreateProduct(@RequestParam("name") String name,
-                                     @RequestParam("categoryId") Integer categoryId,
-                                     @RequestParam("price") float price,
-                                     @RequestParam("description") String description,
-                                     @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
-        Product product = new Product();
-        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        product.setName(name);
-        product.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        product.setPrice(price);
-        product.setDescription(description);
-        Category category = categoryRepository.getById(categoryId);
-        product.setCategory(category);
-        category.setStatus(true);
-        Brand brand = category.getBrand();
-        brand.setStatus(true);
-        product.setThumbnail("~/img/product/"+filename);
-        productRepository.save(product);
-        categoryRepository.save(category);
-        brandRepository.save(brand);
-        String uploadDir = "./src/main/resources/static/img/product/";
-        Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        }catch (IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
-        return "redirect:/admin/products";
-    }
-
     @GetMapping("/admin/product/update/{id}")
     public String updateProduct(Model model,@PathVariable("id") Integer id){
         Product product = productService.getDetailProductById(id);

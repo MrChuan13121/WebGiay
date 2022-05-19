@@ -7,6 +7,8 @@ import com.ntc.webgiay.repository.OrderRepository;
 import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -44,6 +46,12 @@ public class OrderServiceImpl implements OrderService {
         return listOrder;
     }
 
+
+    @Override
+    public Page<Order> findAllOrderById(Pageable pageable){
+        Page<Order> pageList = orderRepository.findAllOrderById(pageable);
+        return pageList;
+    }
     @Override
     public Order getById(int id){
         return orderRepository.getById(id);

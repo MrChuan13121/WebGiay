@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Service
 @SessionScope
-public class  ShoppingCartServiceImpl implements ShoppingCartService {
+public class   ShoppingCartServiceImpl implements ShoppingCartService {
 
     Map<Integer, CartItem> maps = new HashMap<Integer, CartItem>();
 

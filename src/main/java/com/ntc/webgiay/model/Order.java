@@ -65,5 +65,83 @@ public class Order {
         this.user = user;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getAddressReceiver() {
+        return addressReceiver;
+    }
+
+    public void setAddressReceiver(String addressReceiver) {
+        this.addressReceiver = addressReceiver;
+    }
+
+    public String getNameReceiver() {
+        return nameReceiver;
+    }
+
+    public void setNameReceiver(String nameReceiver) {
+        this.nameReceiver = nameReceiver;
+    }
+
+    public String getPhoneNumberReceiver() {
+        return phoneNumberReceiver;
+    }
+
+    public void setPhoneNumberReceiver(String phoneNumberReceiver) {
+        this.phoneNumberReceiver = phoneNumberReceiver;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Timestamp modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

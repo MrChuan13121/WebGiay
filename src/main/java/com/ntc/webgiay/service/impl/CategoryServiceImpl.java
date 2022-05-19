@@ -6,6 +6,8 @@ import com.ntc.webgiay.repository.BrandRepository;
 import com.ntc.webgiay.repository.CategoryRepository;
 import com.ntc.webgiay.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,6 +56,13 @@ public class CategoryServiceImpl implements CategoryService {
         category1.setBrand(brand);
         categoryRepository.save(category1);
         return  category1;
+    }
+
+    @Override
+    public Page<Category> findAllOrderById(Pageable pageable){
+        Page<Category> pageList = categoryRepository.findAllOrderById(pageable);
+        return pageList;
+
     }
 
 }

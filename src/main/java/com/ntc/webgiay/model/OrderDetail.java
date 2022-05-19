@@ -7,8 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @Entity
 @Table(name = "order_details")
 public class OrderDetail {
@@ -31,7 +29,43 @@ public class OrderDetail {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
