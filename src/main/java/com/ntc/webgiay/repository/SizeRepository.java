@@ -10,5 +10,8 @@ public interface SizeRepository extends JpaRepository<Size, Integer> {
     @Query(nativeQuery = true, value = "select * from dbshopgiay.sizes where number_size = ?1")
     Size getByName(int size);
 
+    @Query("SELECT s FROM Size s WHERE s.Id = ?1")
+    Size getById(int id);
+
 
 }
