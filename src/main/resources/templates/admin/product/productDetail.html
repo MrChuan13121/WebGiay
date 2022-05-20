@@ -604,23 +604,22 @@
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
                 style="padding: 20px;"
         >
-            CHI TIẾT ĐƠN ĐẶT HÀNG
+            CHI TIẾT SẢN PHẨM
         </h2>
 
         <!--================Order Details Area =================-->
         <section>
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200" style="padding: 20px;">Thông tin khách hàng</h2>
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200" style="padding: 20px;">Thông tin sản phẩm</h2>
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                     <thead>
                     <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">Tên người nhận</th>
-                        <th class="px-4 py-3">Địa chỉ nhận </th>
-                        <th class="px-4 py-3">Số điện thoại</th>
-                        <th class="px-4 py-3">Ghi chú</th>
-
+                        <th class="px-4 py-3">ID</th>
+                        <th class="px-4 py-3">Tên sản phẩm </th>
+                        <th class="px-4 py-3">Mô tả</th>
+                        <th class="px-4 py-3">Giá</th>
                     </tr>
                     </thead>
                     <tbody
@@ -628,15 +627,13 @@
 
                     >
                     <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3" th:text="${order.nameReceiver}">
+                        <td class="px-4 py-3" th:text="${product.id}"></td>
 
-                        </td>
-                        <!--Gia-->
-                        <td class="px-4 py-3 text-sm" th:text="${order.addressReceiver}"></td>
-                        <!--SL-->
-                        <td class="px-4 py-3 text-sm" th:text="${order.phoneNumberReceiver}"></td>
-                        <!--size-->
-                        <td class="px-4 py-3 text-sm" th:text="${order.note}"></td>
+                        <td class="px-4 py-3 text-sm" th:text="${product.name}"></td>
+
+                        <td class="px-4 py-3 text-sm" th:text="${product.description}"></td>
+
+                        <td class="px-4 py-3 text-sm" th:text="${product.price}"></td>
 
                     </tr>
                     </tbody>
@@ -644,20 +641,6 @@
             </div>
         </section>
         <section>
-            <!--<div>
-                <div>
-                    <div class="col-lg-4">
-                        <div >
-                            <h4 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Thông tin khách hàng</h4>
-                            <span>Tên người nhận</span><br>
-                            <span>Địa chỉ nhận</span></br>
-                            <span>Số điện thoại</span></br>
-                            <span>Ghi chú</span>
-                        </div>
-                    </div>
-
-                </div>-->
-                <!--=THONG TIN SAN PHAM=-->
                 <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200" style="padding: 20px;">Thông tin sản phẩm</h2>
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
@@ -665,56 +648,39 @@
                         <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                         >
-                            <th class="px-4 py-3">Sản phẩm</th>
-                            <th class="px-4 py-3">Giá </th>
-                            <th class="px-4 py-3">Số lượng</th>
                             <th class="px-4 py-3">Size</th>
-                            <th class="px-4 py-3">Tổng tiền</th>
+                            <th class="px-4 py-3">Số lượng tồn </th>
+                            <th class="px-4 py-3">Cập nhật số lượng</th>
                         </tr>
                         </thead>
                         <tbody
                                 class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
 
-                        th:each="item :${listOrderDetail}">
+                        th:each="item :${listSize}">
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
-                                    <div>
-                                        <!--Ten sp-->
-                                        <p class="font-semibold" th:text="${item.product.name}" ></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <!--Gia-->
-                            <td class="px-4 py-3 text-sm" th:text="${item.product.price}"></td>
-                            <!--SL-->
+
+                            <td class="px-4 py-3 text-sm" th:text="${item.size.numberSize}"></td>
+
                             <td class="px-4 py-3 text-sm" th:text="${item.quantity}"></td>
 
-                            <td class="px-4 py-3 text-sm" th:text="${item.size}">
-
+                            <td  >
+                                <form th:action="@{/admin/product/{id}/update(id = ${item.size.id})}" method="post">
+                                    <input type="hidden" name="productId" th:value="${product.id}">
+                                    <div style="display: inline-flex">
+                                        <input type="text" style="padding:  5px 10px; width: 50px; border: gray solid 1px; border-radius: 3px;" name="qty" id="sst" maxlength="12" th:value="${item.quantity}" title="Số lượng:"/>
+                                        &ensp;
+                                        <button type="submit"  class="flex items-center justify-between p-1 text-white text-sm font-semibold text-purple-60 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple">Cập nhật</button>
+                                    </div>
+                                </form>
                             </td>
-                            <!--tien-->
-                            <td class="px-4 py-3 text-sm" th:text="${#numbers.formatDecimal(item.quantity * item.product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></td>
 
                         </tr>
                         </tbody>
                     </table>
                     <div style="display: flex;  justify-content: right; padding: 20px;" >
-                        <form th:action="@{/accept}" method="post" th:if="${order.status == false}">
-                            <input type="hidden" name="orderId" th:value="${order.id}">
-                            <input type="submit" class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-pink" value="Xác nhận">
-                        </form>
-                        &emsp;
-                        <a      th:if="${order.status == false}"
+                        <a
                                 class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-pink"
-                                th:href="@{/admin/order/delete/{id}(id = ${order.id})}"
-                        >
-                            <span>Hủy đơn</span>
-                        </a>
-                        <a      th:if="${order.status == true}"
-                                class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-pink"
-                                th:href="@{/admin/orders}"
+                                th:href="@{/admin/products}"
                         >
                             <span>Quay lại</span>
                         </a>

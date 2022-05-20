@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.model.IModel;
 
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -250,6 +251,7 @@ public class AdminsController {
     }
     @GetMapping("/admin/createProduct")
     public String adminCreateProduct(Model model){
+        model.addAttribute("listSize",sizeRepository.findAll());
         model.addAttribute("newProduct",new Product());
         model.addAttribute("listCategory",categoryRepository.findAll());
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
@@ -260,6 +262,8 @@ public class AdminsController {
     public String adminCreateProduct(@RequestParam("name") String name,
                                      @RequestParam("categoryId") Integer categoryId,
                                      @RequestParam("price") float price,
+                                     @RequestParam("sizeId") int idSize,
+                                     @RequestParam("quantity") int quantity,
                                      @RequestParam("description") String description,
                                      @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
         Product product = new Product();
@@ -274,9 +278,18 @@ public class AdminsController {
         Brand brand = category.getBrand();
         brand.setStatus(true);
         product.setThumbnail("~/img/product/"+filename);
+        Product_size product_size = new Product_size();
+        product.setQuantity(quantity);
+        product.setStatus(true);
+        product_size.setProduct(product);
+        Size size = sizeRepository.getById(idSize);
+        product_size.setSize(size);
+        product_size.setQuantity(quantity);
         productRepository.save(product);
+        productSizeRepository.save(product_size);
         categoryRepository.save(category);
         brandRepository.save(brand);
+
         String uploadDir = "./src/main/resources/static/img/product/";
         Path uploadPath = Paths.get(uploadDir);
         if(!Files.exists(uploadPath)){
@@ -291,6 +304,7 @@ public class AdminsController {
         }
         return "redirect:/admin/products";
     }
+
 
 
     //////////////////////////Category
@@ -479,8 +493,24 @@ public class AdminsController {
     }
 
     @GetMapping("/admin/product/{id}")
-    public String productDetail(@PathVariable("id") Integer id){
+    public String productDetail(Model model,@PathVariable("id") Integer id){
+        Product product = productService.getDetailProductById(id);
+        List<Product_size> listSize = productSizeRepository.findAllByProductId(id);
+        model.addAttribute("product",product);
+        model.addAttribute("listSize",listSize);
         return "admin/product/productDetail";
+    }
+
+    @PostMapping("/admin/product/{id}/update")
+    public String updateSize(@PathVariable("id") int id, @RequestParam("productId") int productId, @RequestParam("qty") int quantity){
+        Product_size product_size = productSizeRepository.findByProductIdAndSizeId(productId,id);
+        int a = product_size.getQuantity();
+        product_size.setQuantity(quantity);
+        Product product = productRepository.getById(productId);
+        product.setQuantity(product.getQuantity() - a + quantity);
+        productRepository.save(product);
+        productSizeRepository.save(product_size);
+        return "redirect:/admin/product/"+productId;
     }
 
     ////////////////////////User
