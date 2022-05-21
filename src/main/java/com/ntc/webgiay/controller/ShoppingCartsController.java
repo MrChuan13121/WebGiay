@@ -69,7 +69,7 @@ public class ShoppingCartsController {
             item.setQuantity(qty);
             item.setSize(size);
             item.setProductId(product.getId());
-            shoppingCartService.add(item,size);
+            shoppingCartService.add(item,size,qty);
         }
         return "redirect:/cart";
     }

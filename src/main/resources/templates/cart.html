@@ -112,11 +112,11 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Giỏ hàng</h1>
+                    <h1 style="font-weight: 600;color: #ff9933;">Giỏ hàng</h1>
                     <nav class="d-flex align-items-center">
-                        <a >Trang chủ<span class="lnr lnr-arrow-right"></span></a>
-                        <a >Giỏ hàng</a>
+                        <a >Trang chủ<span class="lnr lnr-arrow-right"></span>Giỏ hàng </a>
                     </nav>
+
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
                                         </td>
                                         <td>
                                             <div class="product_count">
-                                                <input type="text" name="qty" id="sst" maxlength="12" th:value="${item.quantity}" title="Số lượng:"
+                                                <input type="number" min="1" name="qty" id="sst" maxlength="12" th:value="${item.quantity}" title="Số lượng:"
                                                     class="input-text qty" onblur="this.form.submit()"/>
                                             </div>
                                         </td>

@@ -27,17 +27,19 @@
 	<link rel="stylesheet" href="css/nouislider.min.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0" nonce="AmOqa4Oo"></script>
 </head>
 
 <body>
 
 <!-- Start Header Area -->
 <header class="header_area sticky-header">
-	<div class="main_menu">
+	<div class="main_menu" >
 		<nav class="navbar navbar-expand-lg navbar-light main_box">
-			<div class="container">
+			<div class="container" >
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<a class="navbar-brand logo_h" href="error/index.html"><img src="img/logo.png" alt=""></a>
+				<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar"></span>
@@ -47,11 +49,11 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse offset" id="navbarSupportedContent" >
 					<ul class="nav navbar-nav menu_nav ml-auto" >
-						<li class="nav-item active"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
 						<!-- Shop -->
 						<li class="nav-item submenu dropdown">
 							<a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Shop</a>
+							   aria-expanded="false">Cửa hàng</a>
 							<ul class="dropdown-menu" >
 								<li class="nav-item"><a class="nav-link" th:href="@{/products}">Danh sách sản phẩm</a></li>
 								<div th:each="brand: ${listBrandsReputation}">
@@ -62,23 +64,9 @@
 
 						<!-- Gio hang -->
 						<li class="nav-item submenu dropdown">
-							<a href="cart" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Giỏ hàng</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
-								<li class="nav-item"><a class="nav-link" href="checkout">Product Checkout</a></li>
-								<li class="nav-item"><a class="nav-link" href="confirmation">Confirmation</a></li>
-							</ul>
+							<a th:href="@{/cart}" class="nav-link dropdown-toggle" role="button">Giỏ hàng</a>
 						</li>
-						<li class="nav-item submenu dropdown">
-							<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Blog</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
-								<li class="nav-item"><a class="nav-link" href="single-blog">Blog Details</a></li>
-							</ul>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="contact">Liên hệ</a></li>
+						<li class="nav-item active"><a class="nav-link" href="contact">Liên hệ</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="nav-item">
@@ -86,10 +74,12 @@
 						</li>
 						<li class="nav-item" th:unless="${#request.userPrincipal != null }">
 							<a href="/login" class="cart">
-									<span class="ti-user">
-									</span>
+                                        <span class="ti-user">
+                                        </span>
 								<b> Đăng nhập</b>
 							</a>
+
+
 						</li>
 						<li style="display: flex; flex-direction: row; align-items: center; ">
 							<div th:if="${#request.userPrincipal != null }">
@@ -104,8 +94,8 @@
 	</div>
 	<div class="search_input" id="search_input_box">
 		<div class="container">
-			<form class="d-flex justify-content-between">
-				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+			<form th:action="@{/products}" class="d-flex justify-content-between">
+				<input type="text" class="form-control" id="name" name="name" placeholder="Tìm kiếm sản phẩm...">
 				<button type="submit" class="btn"></button>
 				<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 			</form>
@@ -119,10 +109,9 @@
 	<div class="container">
 		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 			<div class="col-first">
-				<h1>Liên hệ với chúng tôi ngay</h1>
+				<h1 style="font-weight: 600;color: #ff9933;">Liên hệ với chúng tôi</h1>
 				<nav class="d-flex align-items-center">
-					<a href="error/index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-					<a href="category.html">Contact</a>
+					<a >Trang chủ<span class="lnr lnr-arrow-right"></span> Liên hệ</a>
 				</nav>
 			</div>
 		</div>
@@ -170,7 +159,99 @@
 <!--================Contact Area =================-->
 
 <!-- start footer Area -->
+<footer class="footer-area section_gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3  col-md-6 col-sm-6">
+				<div class="single-footer-widget">
+					<h6>Liên hệ với chúng tôi</h6>
+					<a href="#" style="color: gray">
+						<p>
+							Hướng dẫn đặt hàng
+						</p>
+					</a>
+					<a href="#" style="color: gray">
+						<p>
+							Thông tin thanh toán
+						</p>
+					</a>
+					<a href="#" style="color: gray">
+						<p>
+							Chính sách giao hàng và nhận hàng
+						</p>
+					</a>
+					<a href="#" style="color: gray">
+						<p>
+							Liên hệ
+						</p>
+					</a>
+					<a href="#" style="color: gray">
+						<p>
+							Giới thiệu về chúng tôi
+						</p>
+					</a>
+				</div>
+			</div>
 
+			<div class="action">
+				<h6>Thông tin shop</h6>
+				<ul class="clearfix action_footer">
+					<li class="clearfix margin-bottom">
+						<div class="clearfix">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+
+						</div>
+					</li>
+					<li class="clearfix margin-bottom">
+						<div class="clearfix">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+
+						</div>
+					</li>
+					<li class="clearfix margin-bottom">
+						<div class="clearfix">
+							<i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+							<a href="tel:0865562385" title="Liên hệ nhanh" data-wpel-link="internal" style="color: gray; padding-left: 5px;">
+								086.5562.385
+							</a>
+						</div>
+					</li>
+					<li class="clearfix margin-bottom">
+						<div class="email">
+							<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							<a href="mailto:nguyenvanchuan13012001@gmail.com" style="color: gray; padding-left: 5px;">
+								nguyenvanchuan13012001@gmail.com
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="fb-page ml-2"
+				 data-href="https://www.facebook.com/GiayBamBui"
+				 data-width="380"
+				 data-hide-cover="false"
+				 data-show-facepile="false">
+			</div>
+			<div class="col-lg-2 col-md-6 col-sm-6">
+				<div class="single-footer-widget">
+					<h6>Theo dỗi chúng tôi</h6>
+					<div class="footer-social d-flex align-items-center">
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-dribbble"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+			<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Mọi quyền được bảo lưu | Mẫu này được làm bởi <i class="fa fa-heart-o" aria-hidden="true"></i>  <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</p>
+		</div>
+	</div>
+</footer>
 <!-- End footer Area -->
 
 <!--================Contact Success and Error message Area =================-->

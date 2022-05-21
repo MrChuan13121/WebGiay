@@ -1,13 +1,16 @@
 package com.ntc.webgiay.service;
 
 import com.ntc.webgiay.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface UserService {
-    List<User> findAll();
+    Page<User> findAllUserOrderById(Pageable pageable);
+
 
     List<Integer> findAllAdminId();
 
