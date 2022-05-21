@@ -88,7 +88,6 @@ public class AdminsController {
     @GetMapping("/admin/index")
     public String adminHome(Model model){
         model.addAttribute("totalProduct",productRepository.countProduct());
-        model.addAttribute("sumPrice", orderRepository.sumPrice());
         model.addAttribute("countUser",userRepository.countUser());
         model.addAttribute("countOrder", orderRepository.countOrder());
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
@@ -191,25 +190,11 @@ public class AdminsController {
     }
 
     @PostMapping("/admin/brand/update")
-    public String updateBrand(@RequestParam("id") Integer id, @RequestParam("nameBrand") String nameBrand, @RequestParam("description") String description, @RequestParam("thumbnailUrl") MultipartFile multipartFile ) throws IOException {
+    public String updateBrand(@RequestParam("id") Integer id, @RequestParam("nameBrand") String nameBrand, @RequestParam("description") String description) throws IOException {
         Brand brand = brandService.getById(id);
         brand.setNameBrand(nameBrand);
         brand.setDescription(description);
-        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        brand.setThumbnail("~/img/brand/"+filename);
         brandService.save(brand);
-        String uploadDir = "./src/main/resources/static/img/brand/";
-        Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-        }catch(IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
         return "redirect:/admin/brands";
 
     }
@@ -458,31 +443,17 @@ public class AdminsController {
     public String adminCreateProduct(@RequestParam("id") Integer id,
                                      @RequestParam("name") String name,
                                      @RequestParam("categoryId") Integer categoryId,
-                                     @RequestParam("price") float price,
-                                     @RequestParam("description") String description,
-                                     @RequestParam("thumbnailUrl") MultipartFile multipartFile) throws IOException {
+                                     @RequestParam("price") float price
+                                    ) throws IOException {
         Product product = productService.getDetailProductById(id);
-        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         product.setName(name);
         product.setModifiedAt(new Timestamp(System.currentTimeMillis()));
         product.setPrice(price);
-        product.setDescription(description);
         Category category = categoryRepository.getById(categoryId);
         product.setCategory(category);
-        product.setThumbnail("~/img/product/"+filename);
         productRepository.save(product);
         String uploadDir = "./src/main/resources/static/img/product/";
         Path uploadPath = Paths.get(uploadDir);
-        if(!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
-        }
-        try{
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        }catch (IOException e){
-            throw new IOException("Không thể tải file: "+filename);
-        }
         return "redirect:/admin/products";
     }
 
@@ -508,22 +479,78 @@ public class AdminsController {
         product_size.setQuantity(quantity);
         Product product = productRepository.getById(productId);
         product.setQuantity(product.getQuantity() - a + quantity);
+        if(product.getQuantity() == 0 ){
+            product.setStatus(false);
+        }else{
+            product.setStatus(true);
+        }
         productRepository.save(product);
         productSizeRepository.save(product_size);
         return "redirect:/admin/product/"+productId;
     }
 
+    @GetMapping("/admin/product/add/size/{id}")
+    public String addSize(Model model, @PathVariable("id") int id){
+        model.addAttribute("product",productRepository.getById(id));
+        model.addAttribute("listSize",sizeRepository.findAll());
+        return "/admin/product/insertSizeProduct";
+    }
+    @PostMapping("/admin/product/{id}/size/add")
+    public String addSize(@PathVariable("id") int id, @RequestParam("sizeId") int size, @RequestParam("quantity") int quantity){
+        Product_size product_size = productSizeRepository.findByProductIdAndSizeId(id,size);
+        if(product_size == null){
+            product_size = new Product_size();
+            product_size.setProduct(productRepository.getById(id));
+            product_size.setSize(sizeRepository.getById(size));
+            product_size.setQuantity(quantity);
+            productSizeRepository.save(product_size);
+            Product product = productRepository.getById(product_size.getProduct().getId());
+            product.setQuantity(product.getQuantity() + quantity);
+            if(product.getQuantity() == 0 ){
+                product.setStatus(false);
+            }else{
+                product.setStatus(true);
+            }
+            productRepository.save(product);
+        }else{
+            product_size.setQuantity(product_size.getQuantity() + quantity);
+            productSizeRepository.save(product_size);
+            Product product = productRepository.getById(product_size.getProduct().getId());
+            product.setQuantity(product.getQuantity() + quantity);
+            if(product.getQuantity() == 0 ){
+                product.setStatus(false);
+            }else{
+                product.setStatus(true);
+            }
+            productRepository.save(product);
+        }
+        return "redirect:/admin/product/"+id;
+    }
     ////////////////////////User
     @GetMapping("/admin/users")
-    public String adminUsers(Model model){
+    public String adminUsers(Model model,@RequestParam("page")Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         model.addAttribute("countOrderWait", orderRepository.countDonHangCho());
-        List<Integer> listAdminId = userService.findAllAdminId();
-        List<User> listUser = userService.findAll();
-        for( var item : listAdminId){
-            User user = userService.getById(item);
-            listUser.remove(user);
-        }
+        int currentPage = page.orElse(1);
+        int sizePage = size.orElse(10);
+        Pageable pageable = PageRequest.of(currentPage-1,sizePage);
+        Page<User> listUser = userService.findAllUserOrderById(pageable);
         model.addAttribute("listUser",listUser);
+        int totalPage = listUser.getTotalPages();
+        if (totalPage > 0 ){
+            int start = Math.max(1,currentPage-2);
+            int end = Math.min(currentPage + 2, totalPage);
+            if( totalPage > 5 ){
+                if( end == totalPage){
+                    start = end - 5;
+                }else if(start == 1){
+                    end = start + 5;
+                }
+            }
+            List<Integer> pagenummber = IntStream.rangeClosed(start,end)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumber", pagenummber);
+        }
         return "admin/user/users";
     }
 

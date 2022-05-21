@@ -70,9 +70,8 @@
         </form>
       </div>
       <div class="form-container sign-in-container">
-        <form th:action="@{/login}" method="post">
-          <h1>Chào mừng đã đến với sneaker NTC</h1>
-          <p>ĐĂNG NHẬP!</p>
+        <form th:action="@{/login}" method="post" >
+          <h2>ĐĂNG NHẬP</h2>
           <br />
           <input
             type="email"
@@ -87,6 +86,8 @@
             placeholder="Mật khẩu"
             required
           />
+          <p th:if="${error != null}" style="color: red;">Tài khoản và mật khẩu không chính xác</p>
+          <input type="hidden" id="error" th:value="${error}">
           <!--			<a href="#">Bạn quên mật khẩu ?</a>-->
           <br />
           <button type="submit">Đăng nhập</button>
@@ -126,6 +127,7 @@
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
   const container = document.getElementById("container");
+  const error = document.getElementById("error");
 
   signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
@@ -134,4 +136,9 @@
   signInButton.addEventListener("click", () => {
     container.classList.remove("right-panel-active");
   });
+  console.log(error.valueOf(error).value)
+  if(error.valueOf(error).value == 'Optional[email]') {
+    container.classList.add("right-panel-active");
+
+  }
 </script>

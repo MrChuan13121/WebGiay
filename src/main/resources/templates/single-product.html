@@ -36,6 +36,7 @@
 </head>
 
 <body>
+<!-- Start Header Area -->
 <header class="header_area sticky-header">
 	<div class="main_menu" >
 		<nav class="navbar navbar-expand-lg navbar-light main_box">
@@ -51,11 +52,11 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse offset" id="navbarSupportedContent" >
 					<ul class="nav navbar-nav menu_nav ml-auto" >
-						<li class="nav-item active"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/}">Trang chủ</a></li>
 						<!-- Shop -->
 						<li class="nav-item submenu dropdown">
 							<a href="category" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Shop</a>
+							   aria-expanded="false">Cửa hàng</a>
 							<ul class="dropdown-menu" >
 								<li class="nav-item"><a class="nav-link" th:href="@{/products}">Danh sách sản phẩm</a></li>
 								<div th:each="brand: ${listBrandsReputation}">
@@ -65,16 +66,8 @@
 						</li>
 
 						<!-- Gio hang -->
-						<li class="nav-item submenu dropdown">
-							<a th:href="@{/cart}" class="nav-link dropdown-toggle"  role="button" >Giỏ hàng</a>
-						</li>
-						<li class="nav-item submenu dropdown">
-							<a href="Blog" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Blog</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
-								<li class="nav-item"><a class="nav-link" href="single-blog">Blog Details</a></li>
-							</ul>
+						<li class="nav-item submenu dropdown active">
+							<a th:href="@{/cart}" class="nav-link dropdown-toggle" role="button">Giỏ hàng</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="contact">Liên hệ</a></li>
 					</ul>
@@ -84,8 +77,8 @@
 						</li>
 						<li class="nav-item" th:unless="${#request.userPrincipal != null }">
 							<a href="/login" class="cart">
-									<span class="ti-user">
-									</span>
+                                        <span class="ti-user">
+                                        </span>
 								<b> Đăng nhập</b>
 							</a>
 
@@ -94,7 +87,7 @@
 						<li style="display: flex; flex-direction: row; align-items: center; ">
 							<div th:if="${#request.userPrincipal != null }">
 								<b>[[${#request.userPrincipal.principal.fullName}]]</b>
-								<a th:href="@{/logout}" class="btn btn-outline-warning " style="zoom: 0.7; margin-left: 5px;" > Đăng xuất</a>
+								<a th:href="@{/logout}"  class="btn btn-outline-warning " style="zoom: 0.7; margin-left: 5px;" > Đăng xuất</a>
 							</div>
 						</li>
 					</ul>
@@ -121,7 +114,7 @@
 			<div class="col-first">
 				<h1 style="font-weight: 600;color: #ff9933;">Thông tin sản phẩm</h1>
 				<nav class="d-flex align-items-center">
-					<a >Trang chủ<span class="lnr lnr-arrow-right"></span> Danh sách sản phẩm <span class="lnr lnr-arrow-right"></span> Thông tin sản phẩm</a>
+					<a >Trang chủ<span class="lnr lnr-arrow-right"></span> Cửa hàng <span class="lnr lnr-arrow-right"></span>  Danh sách sản phẩm <span class="lnr lnr-arrow-right"></span> Thông tin sản phẩm</a>
 				</nav>
 			</div>
 		</div>
@@ -138,7 +131,7 @@
 					<div class="s_product_text">
 						<h3 th:text="${product.name}"></h3>
 						<br>
-						<h2 th:text=" ${product.price} +' VNĐ'"></h2>
+						<h2 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></h2>
 						<p th:utext="${product.description}"></p>
 						<div>
 							<div th:if="${listSize.size() == 0}">Tình trạng: Hết hàng</div>
@@ -157,11 +150,7 @@
 						<br>
 						<div class="product_count">
 							<label>	Số lượng:</label>
-							<input type="text" style="padding: 5px;" name="qty" id="sst" maxlength="12" th:value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-									class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-									class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+							<input type="number" min="1" style="padding: 5px;" name="qty" id="sst" maxlength="12" th:value="1" title="Quantity:" class="input-text qty">
 						</div>
 						<div class="card_area d-flex align-items-center" th:if="${listSize.size() != 0}">
 							<input type="submit" class="primary-btn" value="Thêm vào giỏ hàng">

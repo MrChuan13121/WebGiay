@@ -17,9 +17,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query(value = "SELECT SUM(price) FROM Order WHERE status = 1")
-    float sumPrice ();
-
     @Query(nativeQuery = true, value = "UPDATE dbshopgiay.orders set status = true where id = ?1")
     void updateStatus(int id);
 
