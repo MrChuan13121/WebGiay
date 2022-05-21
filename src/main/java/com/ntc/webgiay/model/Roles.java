@@ -33,15 +33,13 @@ public class Roles {
         return name;
     }
 
-    public Roles(){
-        this.id = 1;
-        this.name = "USER";
-        this.id = 2;
-        this.name = "ADMIN";
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 
 

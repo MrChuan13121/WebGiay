@@ -90,20 +90,20 @@ public class HomeController {
 		return "index";
 	}
 
-	//Đăng ký
-	@GetMapping("/register")
-	public String showRegistrationForm(Model model) {
-		model.addAttribute("user", new User());
-
-		return "signup_form";
-	}
 	
 	@PostMapping("/process_register")
-	public String processRegister(User user) {
+	public String processRegister(User user ) {
+    	if( userRepo.findByEmail(user.getEmail()) != null){
+			return "redirect:/login";
+		}
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		user.setStatus(false);
+		Set<Roles> roles = new HashSet<>();
+		roles.add(rolesRepository.getById(1));
+		user.setRoles(roles);
 		userRepo.save(user);
 		
 		return "redirect:/login";
@@ -116,14 +116,22 @@ public class HomeController {
 
 	//Đăng nhập
 	@GetMapping("/login")
-	public String showLoginPage(Model model){
+	public String showLoginPage(Model model, @RequestParam("error") Optional<String> error){
 		model.addAttribute("user", new User());
+		if(error.isPresent()) {
+			model.addAttribute("error", error);
+		}
+
 		return "login";
 	}
 
 	//Trang thông tin sản phẩm
 	@GetMapping("/{id}")
 	public String getDetailProduct(Model model, @PathVariable int id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+
+		//Lấy các thương hiệu
+		List<Brand> brandsReputation = brandService.getBrandReputation();
+		model.addAttribute("listBrandsReputation",brandsReputation);
 
 		//Lấy thông tin sản phẩm
 		Product product;

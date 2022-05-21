@@ -38,6 +38,7 @@ public class ProductsController {
         List<Brand> brandsReputation = brandService.getBrandReputation();
         model.addAttribute("listBrandsReputation",brandsReputation);
 
+
         //Tìm kiếm sản phẩm
 
         int currentPage = page.orElse(1);//Trang hiển thị

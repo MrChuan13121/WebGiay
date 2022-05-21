@@ -4,6 +4,8 @@ import com.ntc.webgiay.model.User;
 import com.ntc.webgiay.repository.UserRepository;
 import com.ntc.webgiay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,8 +17,8 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public List<User> findAll(){
-        List<User> listUser = userRepository.findAll();
+    public Page<User> findAllUserOrderById(Pageable pageable){
+        Page<User> listUser = userRepository.findAllUserOrderById(pageable);
         return listUser;
     }
 

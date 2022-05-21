@@ -34,13 +34,13 @@ public class   ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     ProductSizeRepository productSizeRepository;
     @Override
-    public void add(CartItem item, int size){
+    public void add(CartItem item, int size, int quantity){
             CartItem cartItem = maps.get(item.getProductId());
             if( cartItem == null ){
                 maps.put(item.getSize(),item);
             }else {
                 if(cartItem.getSize() == size){
-                    cartItem.setQuantity(cartItem.getQuantity() + 1 );
+                    cartItem.setQuantity(cartItem.getQuantity() + quantity );
                 }else{
                     maps.put(item.getSize(),item);
                 }
