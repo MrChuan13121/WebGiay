@@ -150,7 +150,7 @@
                                                     <img th:src="@{${item.thumbnail}}" style="width: 132px; height: 102px;" alt="thumbanil">
                                                 </div>
                                                 <div class="media-body">
-                                                    <p th:text="${item.name}"></p>
+                                                    <a style="color: grey;" th:href="@{/{id}(id = ${item.productId})}" th:text="${item.name}"></a>
                                                 </div>
                                             </div>
                                         </td>
