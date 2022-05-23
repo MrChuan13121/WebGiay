@@ -112,17 +112,15 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Thông tin đơn hàng</h1>
+                    <h1 style="font-weight: 600;color: #ff9933;">Thông tin giỏ hàng</h1>
                     <nav class="d-flex align-items-center">
-                        <a href="error/index.html">Trang chủ<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="single-product.html">Thông tin đơn hàng</a>
+                        <a >Trang chủ<span class="lnr lnr-arrow-right"></span>Thông tin đơn hàng</a>
                     </nav>
                 </div>
             </div>
         </div>
     </section>
     <!-- End Banner Area -->
-
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
         <div class="container" >
@@ -137,10 +135,10 @@
                                     <input type="text" class="form-control" id="first" name="name_receiver" placeholder="Họ và tên người nhận" th:value="${user.getFullName()}">
                                 </div>
                                 <div class="col-md-12 form-group p_star">
-                                    <input type="text" class="form-control" id="number" name="phone_number_receiver" placeholder="Số điện thoại người nhận" th:value="${user.phoneNumber}">
+                                    <input type="text" class="form-control" id="number" name="phone_number_receiver" placeholder="Số điện thoại người nhận" th:value="${user.phoneNumber}" required minlength="10" maxlength="15">
                                 </div>
                                 <div class="col-md-12 form-group p_star">
-                                    <input type="text" class="form-control" id="add1" name="address_receiver" placeholder="Địa chỉ nhận hàng" th:value="${user.address}">
+                                    <input type="text" class="form-control" id="add1" name="address_receiver" placeholder="Địa chỉ nhận hàng" th:value="${user.address}" required minlength="20">
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <div class="creat_account">
@@ -154,10 +152,18 @@
                         <div class="col-lg-5">
                             <div class="order_box">
                                 <h2>Đơn hàng</h2>
-                                <ul class="list" >
-                                    <li><a >Sản phẩm <span>Số lượng</span></a></li>
-                                    <li style="display: inline-flex; justify-content: space-between; width: 100%;" th:each="item: ${listItem}"><a th:text="${item.name}"></a><p th:text="${item.quantity}"></p></li>
-                                </ul>
+                                <table class="d-inline-flex">
+                                    <tr >
+                                        <th style="width: 70%;">Sản phẩm</th>
+                                        <th style="width: 10%;">Size</th>
+                                        <th style="width: 20%;">Số lượng</th>
+                                    </tr>
+                                    <tr th:each="item: ${listItem}">
+                                        <td  th:text="${item.name}"></td>
+                                        <td  style="justify-content: center;" th:text="${item.size}"></td>
+                                        <td  th:text="${item.quantity}"></td>
+                                    </tr>
+                                </table>
                                 <ul class="list list_2">
                                     <input type="hidden" name="price" th:value="${total}">
                                     <li><a>Tổng tiền <span  th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')+ 'đ'}"></span></a></li>

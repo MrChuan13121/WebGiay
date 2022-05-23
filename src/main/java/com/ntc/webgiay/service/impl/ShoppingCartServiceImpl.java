@@ -37,7 +37,7 @@ public class   ShoppingCartServiceImpl implements ShoppingCartService {
     public void add(CartItem item, int size, int quantity){
             CartItem cartItem = maps.get(item.getProductId());
             if( cartItem == null ){
-                maps.put(item.getSize(),item);
+                maps.put(item.getProductId(),item);
             }else {
                 if(cartItem.getSize() == size){
                     cartItem.setQuantity(cartItem.getQuantity() + quantity );
