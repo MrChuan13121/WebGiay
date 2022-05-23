@@ -207,13 +207,13 @@
 				<div class="row">
 					<!-- single product -->
 					<div class="col-lg-3 col-md-6" th:each="product: ${listRandomProduct}">
-						<div class="single-product" >
+						<div class="single-product" style="height: 90%;"  >
 							<a th:href="@{/{id}(id=${product.id})}">
 								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
-								<div class="product-details">
+								<div class="product-details" >
 									<h6 th:text="${product.name}"></h6>
 									<div class="price">
-										<h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h6>
+										<h5 style="padding-left: 10px;" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' vnđ'}"></h5>
 									</div>
 									<div style="padding-left: 10px; color: gray;" th:if="${product.quantity > 0}">
 										<p>Tình trạng: Còn hàng</p>
@@ -247,7 +247,7 @@
 				<div class="row">
 					<!-- single product -->
 					<div class="col-lg-3 col-md-6" th:each="product: ${listNewProduct}">
-						<div class="single-product" >
+						<div class="single-product" style="height: 90%;">
 							<a th:href="@{/{id}(id=${product.id})}">
 								<img class="img-fluid" th:src="@{${product.thumbnail}}" alt="">
 								<div class="product-details">
