@@ -196,6 +196,9 @@ public class HomeController {
     	return "redirect:/"+productId;
 	}
 
-
+	@GetMapping("/404")
+	public String errorPage(){
+    	return "error/404";
+	}
 
 }

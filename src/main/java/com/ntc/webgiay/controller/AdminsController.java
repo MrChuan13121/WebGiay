@@ -25,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.model.IModel;
 
 
+import javax.mail.MessagingException;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,6 +81,9 @@ public class AdminsController {
 
     @Autowired
     BrandRepository brandRepository;
+
+    @Autowired
+    EmailSenderService emailSenderService;
 
     @GetMapping("/admin")
     public String adminPage(){
@@ -360,7 +365,7 @@ public class AdminsController {
     /////////////////////////Order
 
     @PostMapping("/accept")
-    public String acceptOrder(@RequestParam("orderId") int id){
+    public String acceptOrder(@RequestParam("orderId") int id) throws MessagingException, UnsupportedEncodingException {
         Order order = orderService.getById(id);
         order.setStatus(true);
         orderRepository.save(order);
@@ -401,9 +406,10 @@ public class AdminsController {
                     }
                 }
             }
+
             productRepository.save(product);
             productSizeRepository.save(product_size);
-
+            emailSenderService.sendSimpleEmail(order.getId());
         }
         return "redirect:admin/orders";
     }
