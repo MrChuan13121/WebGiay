@@ -131,7 +131,7 @@ public class User {
     }
 
     public String getFullName(){
-        return firstName.toString() + " " + lastName.toString();
+        return lastName.toString() + " " + firstName.toString();
     }
     public boolean isStatus() {
         return status;

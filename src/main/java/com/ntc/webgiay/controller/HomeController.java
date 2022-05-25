@@ -71,10 +71,6 @@ public class HomeController {
     	List<Brand> brandsReputation = brandService.getBrandReputation();
 		model.addAttribute("listBrandsReputation",brandsReputation);
 
-		//Lấy tát cả các sản phẩm
-		List<Product> products = productService.findAll();
-		model.addAttribute("listProduct",products);
-
 		//Lấy 3 sản phẩm mới nhất
 		List<Product> newProductsBanner = productService.getListNewProducts(3);
 		model.addAttribute("newProducts",newProductsBanner);
@@ -191,11 +187,12 @@ public class HomeController {
 	public String sendComment(@RequestParam("message") String comment, @RequestParam("productId") int productId){
 		User user = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 		commentService.createComment(productId,user.getId(),comment);
-
-
     	return "redirect:/"+productId;
 	}
 
-
+	@GetMapping("/404")
+	public String errorPage(){
+    	return "error/404";
+	}
 
 }
