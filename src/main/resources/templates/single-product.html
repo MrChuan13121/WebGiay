@@ -23,7 +23,7 @@
 <!--================Single Product Area =================-->
 	<div class="container" >
 		<div class="row" style="display: inline-flex; width: 100%;">
-			<img class="col-lg-7" th:src="@{${product.thumbnail}}" alt="thumbnail" />
+			<img class="col-lg-7"  th:src="@{${product.thumbnail}}" alt="thumbnail" />
 
 				<form th:action="@{/add/{id}(id = ${product.id})}" method="post" class="col-lg-5">
 					<div class="s_product_text">
